@@ -194,6 +194,6 @@ setInterval(() => {
     })
 }, 3000)
 
-const server = app.listen(3001, 'localhost', () => {
+const server = app.listen(3000 'localhost', () => {
     console.log('服务已启动 localhost：3000')
 })
