@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="js/jspdf.min.js" ></script>
+		<script type="text/javascript" src="js/html2canvas.min.js" ></script>
+		<script type="text/javascript" src="js/canvas2image.js" ></script>
+	</head>
+	<style>
+		.contraWap{
+			font-size: 15px;
+			border: 1px solid #E2E2E3;
+		}
+		.contraTop img{
+			width: 150px;
+		}
+		.contraWap table tr td{
+			padding: 0;
+			vertical-align: middle;
+			border: 1px solid #000;
+			height: 40px;
+		}
+		.contraWap table tr .tdPading{
+			padding-left: 5px !important;
+		}
+		.noteTd span:first-child{
+		    display: block;
+		    border-right: 1px solid #000;
+		    padding: 16px 6px;
+		    float: left;
+		    width: 12%;
+		}
+		.noteTd span:last-child{
+		   display: block;
+		    float: left;
+		    width: 85%;
+		    height: 50px;
+		    padding: 15px 6px;
+		}
+		.table-condensed tr .noteTd{
+			border-right: 1px solid #000 !important;
+			padding: 0;
+		}
+		.Pitem2 p,.Pitem p{
+			border-bottom: 1px solid #000;
+		    width: 100%;
+		    margin: 0;
+		    padding: 6px;
+		    height: 50%;
+
+		}
+		.Pitem p{
+			height: 20%;
+		}
+		.Pitem2 p:last-child,.Pitem p:last-child{
+			border: none;
+		}
+
+		.Pitem2,.Pitem{
+			height:100%;
+			border: none;
+			width: 100%;
+			text-align: center;
+		}
+		.spItmWap span{
+			display: inline-block;
+		}
+
+		.DivItem{
+			float: left;
+			width: 37.5%;
+			border-right: 1px solid #000;
+		}
+		.DivItem1{
+			float: left;
+			width: 25%;
+		}
+		.DivItem p,.DivItem1 p{
+			margin: 0;
+			height: 30px;
+			line-height: 30px;
+		}
+		.DivItem div p,.DivItem1 div p{
+			float: left;
+		    width: 33.3%;
+		    border-right: 1px solid #000;
+		    height: 37px;
+		    line-height: 37px;
+		}
+		.DivItem1 div p{
+			width: 50%;
+		}
+		.DivItem div p:last-child,.DivItem1 div p:last-child{
+			border: none;
+		}
+		.bgCol{
+			background: #c5d9f1;
+			font-weight: bold;
+		}
+		.bgCol1{
+			background: #d9d9d9;
+		}
+		.bgCol2{
+			background: #f2f2f2;
+		}
+		/*备注*/
+		.agreementWap p{
+			clear: both;
+			overflow: hidden;
+		}
+		.itemSp1{
+			display: inline-block;
+			float: left;
+			padding-right: 15px;
+		}
+		.itemSp2{
+			display: inline-block;
+			float: left;
+			width: 95%;
+		}
+		.DivItemP{
+			border-bottom: 1px solid #000;
+			height: 25px;
+		}
+
+	</style>
+	<body>
+
+    <button class="btn btn-info" onclick="download1()">下载PDF1</button>
+    <button class="btn btn-info" onclick="download2()">下载PDF2</button>
+    <div id="imgCreate"></div>
+		<div id="qq" class="container-fluid contraWap">
+			<div class=" clearfix contraTop text-center">
+				<div class="pull-left"><img src="img/logo2.png"/></div>
+				<h3 class="contraTopTitle"><b>财年季度销售价格表20170101-20170331</b></h3>
+			</div>
+			<p class="pull-right">有效期：2017.01.01-2017.03.31</p>
+			<table class="table table-bordered table-condensed text-center">
+				<tbody>
+					<tr class="bgCol">
+						<td colspan="3" rowspan="3">项目</td>
+						<td rowspan="3">单位</td>
+						<td style="width: 180px;" rowspan="3">说明</td>
+						<td colspan="8">单价（元）</td>
+						<td rowspan="3">数量</td>
+						<td style="width: 80px;" rowspan="3">总价</td>
+						<td rowspan="3">备注</td>
+					</tr>
+					<tr  class="bgCol">
+						<td colspan="3">总代理（按销售规模分级）</td>
+						<td colspan="3">市代理（按销售规模分级）</td>
+						<td colspan="2">终端价</td>
+					</tr>
+					<tr  class="bgCol">
+						<td>三星</td>
+						<td>二星</td>
+						<td>一星</td>
+						<td>三星</td>
+						<td>二星</td>
+						<td>一星</td>
+						<td>最低报价</td>
+						<td>建议报价</td>
+
+					</tr>
+					<tr>
+						<td rowspan="2"><b>软件</b></td>
+						<td style="width: 100px;"><b>单科</b></td>
+						<td  class="noteTd">
+							<div class="Pitem2">
+								<p><b>含1年标准服务</b></p>
+								<p><b>含3年标准服务</b></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p><b>科</b></p>
+								<p><b>科</b></p>
+							</div>
+						</td>
+						<td class="text-left tdPading">单个学科，可供全年级使用</td>
+						<td>
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2 bgCol1">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p class="text-left">购买3年标准服务，后2年服务费8折</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><b>全科</b></td>
+						<td  class="noteTd">
+							<div class="Pitem2">
+								<p><b>含1年标准服务</b></p>
+								<p><b>含3年标准服务</b></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p><b>科</b></p>
+								<p><b>科</b></p>
+							</div>
+						</td>
+						<td class="text-left tdPading">购买五科及以上，享受全科服务</td>
+						<td>
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2 bgCol1">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p class="text-left">购买3年标准服务，后2年服务费8折</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="14" class="text-right bgCol2"><b>小计</b></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan="3"><b>硬件</b></td></td>
+						<td><b>A4阅卷仪</b></td>
+						<td><b>虹光AT440</b></td>
+						<td><b>台</b></td>
+						<td></td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td></td>
+						<td class="bgCol1"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b>A3阅卷仪</b></td>
+						<td><b>佳能 DR-M1060</b></td>
+						<td><b>台</b></td>
+						<td></td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td></td>
+						<td class="bgCol1"></td>
+						<td class="text-left tdPading">总代单次购买10台以上21500元/台</td>
+					</tr>
+					<tr>
+						<td><b>阅卷仪保障费</b></td>
+						<td><b>阅卷仪授权费</b></td>
+						<td><b>台</b></td>
+						<td class="text-left tdPading">已有以上同型号设备方可购买</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td></td>
+						<td class="bgCol1"></td>
+						<td class="text-left tdPading">为保障设备稳定性建议采购新机器</td>
+					</tr>
+					<tr>
+						<td colspan="14" class="text-right bgCol2"><b>小计</b></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td rowspan="3"><b>软件</b></td></td>
+						<td><b>主科包</b></td>
+						<td  class="noteTd">
+							<div class="Pitem2">
+								<p><b>含1年标准服务</b></p>
+								<p><b>含3年标准服务</b></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p><b>套</b></p>
+								<p><b>套</b></p>
+							</div>
+						</td>
+						<td class="text-left tdPading">主科包括（买三打8折）：语、数、英</td>
+						<td>
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2 bgCol1">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p class="text-left">购买3年标准服务，后2年服务费8折</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><b>文科包</b></td>
+						<td  class="noteTd">
+							<div class="Pitem2">
+								<p><b>含1年标准服务</b></p>
+								<p><b>含3年标准服务</b></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p><b>科</b></p>
+								<p><b>科</b></p>
+							</div>
+						</td>
+						<td class="text-left tdPading">文科包括（买四送二）：语、数、英、政、史、地</td>
+						<td>
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2 bgCol1">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p class="text-left">购买3年标准服务，后2年服务费8折</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><b>文科包</b></td>
+						<td  class="noteTd">
+							<div class="Pitem2">
+								<p><b>含1年标准服务</b></p>
+								<p><b>含3年标准服务</b></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p><b>科</b></p>
+								<p><b>科</b></p>
+							</div>
+						</td>
+						<td class="text-left tdPading">理科包括（买四送二）：语、数、英、物、化、生</td>
+						<td>
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2 bgCol1">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p class="text-left">购买3年标准服务，后2年服务费8折</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="14" class="text-right bgCol2"><b>小计</b></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b>软件服务</b></td></td>
+						<td  class="noteTd">
+							<div class="Pitem">
+								<p><b>单科</b></p>
+								<p><b>全科</b></p>
+								<p><b>主科包</b></p>
+								<p><b>文科包</b></p>
+								<p><b>理科包</b></p>
+							</div>
+						</td>
+						<td><b>标准服务年费</b></td>
+						<td><b>年</b></td>
+						<td class="text-left tdPading">年费服务内容包括：</br>1、软件设备安装</br>2、首次使用培训</br>3、定期硬件巡检</br>4、软件升级</br>5、400客服服务</td>
+						<td>
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+								<p>00,000</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem bgCol1">
+								<p></p>
+								<p></p>
+								<p></p>
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem">
+								<p></p>
+								<p class="text-left">服务费享受买五送四</p>
+								<p class="text-left">服务费享受买三打8折</p>
+								<p class="text-left">服务费享受买四送二</p>
+								<p class="text-left">服务费享受买四送二</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="14" class="text-right bgCol2"><b>小计</b></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b>驻场服务</b></td>
+						<td><b>专人全职服务学校所有极课服务</b></td>
+						<td  class="noteTd">
+							<div class="Pitem2">
+								<p><b>1学期</b></p>
+								<p><b>1学年</b></p>
+							</div>
+						</td>
+						<td class="text-left tdPading">由总代理或二级代理派驻</td>
+						<td>
+							<div class="Pitem2">
+								<p>-</p>
+								<p>-</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>-</p>
+								<p>-</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p>-</p>
+								<p>-</p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2 bgCol1">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+						<td class="noteTd">
+							<div class="Pitem2">
+								<p></p>
+								<p></p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="14" class="text-right bgCol2"><b>小计</b></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b>应用服务</b></td>
+						<td><b>学校数据应用等升级培训（总公司人员）</b></td>
+						<td><b>每人每天</b></td>
+						<td class="text-left tdPading">由总公司直接派认证服务人员参与</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td></td>
+						<td></td>
+						<td class="bgCol1"></td>
+						<td rowspan="2" class="text-left tdPading">
+							1、不含差旅费</br>
+							2、实际工作量双方确认工单</br>
+							3、服务商人员经过官方认证</br>
+						</td>
+					</tr>
+					<tr>
+						<td><b>应用服务</b></td>
+						<td><b>学校数据应用等升级培训（服务商人员）</b></td>
+						<td><b>每人每天</b></td>
+						<td class="text-left tdPading">由总公司派认证服务人员参与</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td>00,000</td>
+						<td></td>
+						<td></td>
+						<td class="bgCol1"></td>
+					</tr>
+					<tr>
+						<td colspan="14" class="text-right bgCol2"><b>小计</b></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="14" class="text-center bgCol1"><b>总计</b></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<!--备注-->
+			<ul class="list-unstyled">
+				<li><p><b>备注：</b></p></li>
+				<li><p class="clearfix"><span class="itemSp1">1.</span><span class="itemSp2">软件与套餐项为二选一，请勿重复购买</span></p></li>
+				<li><p class="clearfix"><span class="itemSp1">2.</span><span class="itemSp2">硬件项阅卷仪型号为极课软件测试过的型号，可确保使用过程中阅卷准确率</span></p></li>
+				<li><p class="clearfix"><span class="itemSp1">3.</span><span class="itemSp2">软件服务可根据实际情况选择购买</span></p></li>
+				<li><p class="clearfix">*此价格解释权归江苏曲速教育科技有限公司所有</p></li>
+			</ul>
+			<!--<div class=" clearfix contraTop text-center" style="margin-top: 40px;">
+				<div class="pull-left"><img src="img/logo2.png"/></div>
+				<h3 class="contraTopTitle"><b>渠道准入标准20170101-20170331</b></h3>
+			</div>
+			<p class="pull-right">有效期：2017.01.01-2017.03.31</p>
+			<table class="table table-bordered table-condensed text-center">
+				<tbody>
+					<tr class="bgCol">
+						<td colspan="4" rowspan="2">内容</td>
+						<td colspan="6" rowspan="2">说明</td>
+						<td colspan="3">总代理（按销售规模分级）</td>
+						<td colspan="3">市代理（按销售规模分级）</td>
+					</tr>
+					<tr class="bgCol">
+						<td>三星</td>
+						<td>二星</td>
+						<td>一星</td>
+						<td>三星</td>
+						<td>二星</td>
+						<td>一星</td>
+					</tr>
+					<tr>
+						<td colspan="4">注册资金</td>
+						<td colspan="6">企业营业执照有效时间的注册金额</td>
+						<td>￥10,000,000.00</td>
+						<td>￥8,000,000.00</td>
+						<td>￥5,000,000.00</td>
+						<td>￥3,000,000.00</td>
+						<td>￥10,000,000.00</td>
+						<td>￥10,000,000.00</td>
+					</tr>
+					<tr>
+						<td colspan="4">从事教育行业案例</td>
+						<td colspan="6">相关区域中学销售合同为准</td>
+						<td>30</td>
+						<td>20</td>
+						<td>10</td>
+						<td>4</td>
+						<td>2</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td colspan="4">主营业务范围</td>
+						<td colspan="6">包括计算机软件／服务销售</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="4">股东组成</td>
+						<td colspan="6">无不良记录合伙人／机构</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="4">服务人员数量</td>
+						<td colspan="6">厂商认证服务工程师</td>
+						<td>10</td>
+						<td>8</td>
+						<td>5</td>
+						<td>2</td>
+						<td>1</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td colspan="4">启动资金</td>
+						<td colspan="6">初期压货金额（元）</td>
+						<td>￥10,000,000.00</td>
+						<td>￥800,000.00</td>
+						<td>￥500,000.00</td>
+						<td>￥200,000.00</td>
+						<td>￥100,000.00</td>
+						<td>￥&nbsp;&nbsp;&nbsp;&nbsp;-</td>
+					</tr>
+					<tr>
+						<td colspan="4">季度考核指标</td>
+						<td colspan="6">回款金额（元）</td>
+						<td>￥500,000.00</td>
+						<td>￥400,000.00</td>
+						<td>￥250,000.00</td>
+						<td>￥100,000.00</td>
+						<td>￥50,000.00</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="4">季度指标完成情况</td>
+						<td colspan="6">以学校合同为准（所）</td>
+						<td>10</td>
+						<td>8</td>
+						<td>5</td>
+						<td>2</td>
+						<td>2</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<ul class="list-unstyled">
+				<li><p><b>备注：</b></p></li>
+				<li><p class="clearfix"><span class="itemSp1">1.</span><span class="itemSp2">新合作伙伴第一季度考核为试用学校数量</span></p></li>
+				<li><p class="clearfix"><span class="itemSp1">2.</span><span class="itemSp2">直营、渠道通用</span></p></li>
+				<li><p class="clearfix"><span class="itemSp1">3.</span><span class="itemSp2">一星代理达到二星标准可以升级并享受同级别价格</span></p></li>
+				<li><p class="clearfix"><span class="itemSp1">3.</span><span class="itemSp2">各总监、事业部负责人有对应星级价格体系的折扣权限</span></p></li>
+				<li><p class="clearfix"><span class="itemSp1">3.</span><span class="itemSp2">服务商同各级代理要求，除考核指标</span></p></li>
+				<li><p class="clearfix">*此价格解释权归江苏曲速教育科技有限公司所有</p></li>
+			</ul>-->
+		</div>
+    <script>
+   function download1(){
+       var pdf = new jsPDF('p','pt','a4');
+       pdf.addHTML(document.body,function() {
+           pdf.save('web.pdf');
+       });
+   }
+   function download2(){
+       var shareContent = document.body;//需要截图的包裹的（原生的）DOM 对象
+       var width = shareContent.offsetWidth; //获取dom 宽度
+       var height = shareContent.offsetHeight; //获取dom 高度
+       var canvas = document.createElement("canvas"); //创建一个canvas节点
+       var scale = 1; //定义任意放大倍数 支持小数
+       canvas.width = width * scale; //定义canvas 宽度 * 缩放
+       canvas.height = height * scale; //定义canvas高度 *缩放
+       canvas.getContext("2d").scale(scale,scale); //获取context,设置scale
+       var opts = {
+           scale:scale, // 添加的scale 参数
+           canvas:canvas, //自定义 canvas
+           logging: true, //日志开关
+           width:width, //dom 原始宽度
+           height:height //dom 原始高度
+       };
+        console.log("width:"+width);
+        console.log("height:"+height);
+       html2canvas(shareContent, opts).then(function (canvas) {
+           //如果想要生成图片 引入canvas2Image.js 下载地址：
+           //https://github.com/hongru/canvas2image/blob/master/canvas2image.js
+           //var img = Canvas2Image.convertToImage(canvas, canvas.width, canvas.height);
+         //  $("#imgCreate").html(img);
+           var imgData = canvas.toDataURL("image/JPEG", 1.0);
+           //Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height);
+           var doc = new jsPDF('l', 'px', [height,width]);
+          //  doc.addPage();
+           doc.addImage(imgData, 'JPEG', 10, 10,height,width);
+           doc.save('test.pdf');
+          // window.location.href=imgData;
+       });
+
+
+      /* html2canvas(document.body, {
+           canvas: canvas,
+           onrendered: function(canvas) {
+               var imgData = canvas.toDataURL('img/test.png');
+               var doc = new jsPDF('p', 'px','a4');
+               //第一列 左右边距  第二列上下边距  第三列是图片左右拉伸  第四列 图片上下拉伸
+               doc.addImage(imgData, 'PNG', 1, 1,1500,2200);
+               doc.save('test.pdf');
+           }
+       });*/
+   }
+    </script>
+	</body>
+</html>

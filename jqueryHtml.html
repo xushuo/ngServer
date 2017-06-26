@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">测试文件上传</h3>
+    </div>
+    <div class="panel-body">
+        <form id="form" enctype="multipart/form-data">
+            <input type="text" id="name" name="name"> <input type="file" id="fileId" name="file"/>
+        </form>
+        <button type="button" onclick="submit()">提交</button>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+    function submit(){
+        var form = new FormData(document.getElementById("form"));
+        $.ajax({
+            url : 'http://localhost:3000/local/formTest',
+            type : "post",
+            data : form,
+            cache : false,
+            processData : false,
+            contentType : false,
+            success : function(data){
+                console.log(data);
+            }
+        })
+    }
+</script>
+</body>
+</html>

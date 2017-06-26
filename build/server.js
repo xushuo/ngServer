@@ -7,9 +7,8 @@ var express = require("express");
 var ws_1 = require("ws");
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var path = require('path');
-
 var app = express();
+var formidable = require("formidable");
 var Stock = (function () {
     function Stock(id, name, price, rating, desc, categories) {
         this.id = id;
@@ -119,13 +118,17 @@ var series2 = [{
             }
         ]
     }];
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/',express.static(path.join(__dirname, '..','public/dist')));
-
-
+app.all('*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1');
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
 app.use('/api/user/login', function (req, res) {
     var user = req.body.user;
     console.log({ user1: user });
@@ -187,6 +190,15 @@ app.use('/api/products', function (req, res) {
     console.log({ body: req });
     res.json(stocks);
 });
+app.use('/local/formTest', function (req, res) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+        console.log('fields', fields); //表单传递的input数据
+        console.log('files', files); //上传文件数据
+        //do somthing......
+        res.send({ data: 'success' });
+    });
+});
 var subscriptions = new Set();
 var wsServer = new ws_1.Server({ port: 8085 });
 wsServer.on("connection", function (websocket) {
@@ -204,6 +216,6 @@ setInterval(function () {
         }
     });
 }, 3000);
-var server = app.listen(3001, 'localhost', function () {
+var server = app.listen(3000, 'localhost', function () {
     console.log('服务已启动 localhost：3000');
 });
