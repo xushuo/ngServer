@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-switch.css">
+    <link rel="stylesheet" type="text/css" href="css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
+    <link rel="stylesheet" type="text/css" href="css/dateTimePicker/lanrenzhijia.css">
+    <link rel="stylesheet" type="text/css" href="css/dateTimePicker/jquery-ui.css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap-switch.js"></script>
+    <script src="js/jquery.pagination.js"></script>
+    <script src="js/bootstrap-slider.min.js"></script>
+    <script src="js/dateTimePicker/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="js/dateTimePicker/jquery.ui.datepicker-zh-CN.js"></script>
+    <script src="js/dateTimePicker/jquery-ui-timepicker-addon.js"></script>
+    <script src="js/dateTimePicker/jquery-ui-timepicker-zh-CN.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        .label{
+            cursor:pointer;
+        }
+        .label-default{
+            background-color:#bbb;
+        }
+        .glyphicon{
+            cursor:pointer;
+        }
+        .half_left{
+            background: -webkit-linear-gradient(-180deg, #b5b5b5 53%, #5bc0de 1%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .half_right{
+            background: -webkit-linear-gradient(-180deg, #5bc0de 53%, #b5b5b5 1%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .laebl1{
+            color:#333;
+            background-color:#f9f9f9;
+        }
+        .label-info {
+            background-color: #5bc0de;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="padding-top:20px">
+    <div class="col-xs-3">
+        <div class="panel panel-info">
+            <div class="panel-heading clearfix">
+                <span style="display: inline-block;margin-top: 7px;">知识点目录</span>
+                <div class="switch pull-right">
+                    <input type="checkbox" id="my-checkbox" data-size="small"  data-on-text="单选" data-off-text="多选" checked="checked" data-inverse="true"/>
+                </div>
+            </div>
+            <div class="panel-body" style="padding-left: 40px;">
+                <label class="checkbox">
+                    <input type="checkbox" id="" value="option1">集合与简易逻辑
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="" value="option2">集合与简易逻辑
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="" value="option3">集合与简易逻辑
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="" value="option1">集合与简易逻辑
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="" value="option2">集合与简易逻辑
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="" value="option3">集合与简易逻辑
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-9">
+        <div>
+            <div style="padding: 10px;border: 1px solid #e8e8e8;"  >
+                <div  class="clearfix">
+                    <div class="label label-primary" style="padding: 10px;display: inline-block;">按知识点选题</div>
+                    <div class="label label-primary" style="padding: 10px;display: inline-block;">按章节选题</div>
+                    <div class="input-group pull-right" style="width:400px">
+                        <input type="text" class="form-control" placeholder="输入关键字">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">搜索</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div>
+                <div style="display:flex;margin-top:20px">
+                    <div style="padding: 5px; width: 100px;">题型</div><span style="padding: 5px;" class="text-muted">|</span>
+                    <div style="padding:5px 20px">
+                        <div class="label label-default " style="margin-left:10px" id="allType" onclick="updateSubType(this,0)">全部</div>
+                        <div class="label label-default" style="margin-left:10px" onclick="updateSubType(this,1)">填空题</div>
+                        <div class="label label-default" style="margin-left:10px" onclick="updateSubType(this,2)">解答题</div>
+                        <div class="label label-default" style="margin-left:10px" onclick="updateSubType(this,3)">选择题</div>
+                    </div>
+                </div>
+                <div style="display:flex;margin-top:20px">
+                    <div style="padding: 5px; width: 100px;">难度</div><span style="padding: 5px;" class="text-muted">|</span>
+                    <div style="padding:5px 20px">
+                        <div class="label label-default " style="margin-left:10px" id="allLevel" onclick="updateSubLevel(this,0)">全部</div>
+                        <div class="label label-default" style="margin-left:10px" id="baseLevel" onclick="updateSubLevel(this,1)">基础题</div>
+                        <div class="label label-default" style="margin-left:10px" id="normalLevel" onclick="updateSubLevel(this,2)">中档题</div>
+                        <div class="label label-default" style="margin-left:10px" id="hardLevel" onclick="updateSubLevel(this,3)">难题</div>
+                        <div class="label label-default" style="margin-left:10px;border: 1px solid #e8e8e8;" id="showLevelBtn" onclick="showLevel(this)">
+                            自定义
+                        </div>
+                        <div  style="margin-left: 10px;border: 1px solid #e8e8e8;display: none;padding: 3px;" id="level">
+                            得分率: <b>0</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="0" data-slider-max="100" data-slider-step="10" data-slider-value="[20,40]"/>
+                            <b>100%</b>
+                            <button class="btn btn-primary btn-xs" onclick="updateLevel()" id="Qsubmitlevel">取消</button>
+                            <button class="btn btn-primary btn-xs" onclick="updateLevel()">确定</button>
+                        </div>
+                      <!--  <div class="glyphicon glyphicon-question-sign" style="margin-left:10px"></div>-->
+                    </div>
+                </div>
+                <div style="display:flex;margin-top:20px">
+                    <div style="padding: 5px; width: 100px;">试题入库时间</div><span style="padding: 5px;" class="text-muted">|</span>
+                    <div style="padding:5px 20px">
+                        <div class="label label-default " style="margin-left:10px" id="allDate" onclick="updateSubDate(this,0)">不限</div>
+                        <div class="label label-default" style="margin-left:10px" id="weakDate" onclick="updateSubDate(this,1)">最近1周</div>
+                        <div class="label label-default" style="margin-left:10px" id="monthDate1" onclick="updateSubDate(this,2)">最近1个月</div>
+                        <div class="label label-default" style="margin-left:10px" id="monthDate3" onclick="updateSubDate(this,3)">最近3个月</div>
+                        <div class="label label-default" style="margin-left:10px" id="monthDate6" onclick="updateSubDate(this,4)">最近半年</div>
+                        <div class="label label-default" style="margin-left:10px" id="showDateBtn" onclick="showDate(this)">自定义</div>
+                        <div  style="margin-left: 10px;border: 1px solid #e8e8e8;display: none;padding: 3px;" id="dates">
+                            <input   id="inputData_start" readonly="readonly" placeholder="开始时间" style="cursor: pointer;width:80px" type="text">
+                            <input   id="inputData_end" readonly="readonly" placeholder="结束时间" style="cursor: pointer;width:80px" type="text">
+                            <button class="btn btn-primary btn-xs" onclick="updateDate()" id="Qsubmitdate">取消</button>
+                            <button class="btn btn-primary btn-xs" onclick="updateDate()">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 10px 0;margin-top: 10px;border: 1px solid #e8e8e8;">
+                <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">只看本校</div>
+                <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">高考真题</div>
+                <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">高错题</div>
+                <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">不显示我收藏的题目</div>
+                <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">不显示一个月内使用过的题目</div>
+            </div>
+            <div style="padding: 10px;margin-top: 10px;border: 1px solid #e8e8e8;">
+                <span id="sort0" class="text-primary" onclick="sort(0,this)" style="cursor:pointer">默认排序</span><span class="text-muted" style="margin: 0 10px;">|</span>
+                <span id="sort1" onclick="sort(1,this)" style="cursor:pointer">时间排序<span class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span class="text-muted" style="margin: 0 10px;">|</span>
+                <span id="sort2" onclick="sort(2,this)" style="cursor:pointer">组卷次数<span class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span class="text-muted" style="margin: 0 10px;">|</span>
+                <span id="sort3" onclick="sort(3,this)" style="cursor:pointer">难度排序<span  class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span class="text-muted" style="margin: 0 10px;">|</span>
+                <div class="label label-primary pull-right" style=" margin-left:10px;padding:5px;">
+                    将本页全部加入
+                </div>
+                <div class="pull-right" style="padding:5px;margin-top: -5px;">
+                    <span class="glyphicon glyphicon-menu-left"></span>
+                    <span style="margin:0 10px">2/20</span>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="margin-top:20px">
+                <div style="background-color: #d9edf7">
+                    <div style="border-bottom:1px dashed #bbb;padding: 10px;">
+                        <div class="label label-default laebl1" style="margin-left:10px">正弦</div>
+                        <div class="label label-default laebl1" style="margin-left:10px">立体几何</div>
+                        <div class="label label-default laebl1" style="margin-left:10px">立体几何文案</div>
+                    </div>
+                    <div style="padding:10px">
+                        3.过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经过区域 内的整点（即横纵坐标为整数的点）时直线的方程过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所光线所在直线经过区域 内的整点.的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经。到 轴被反射后经过.
+                    </div>
+                </div>
+                <div style="background-color:#eaf2f7;padding:10px;display:flex">
+                    <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                        <span class="text-muted">题型：</span>
+                        <span>填空题</span>
+                    </div>
+                    <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                        <span class="text-muted">共使用：</span>
+                        <span>3次</span>
+                    </div>
+                    <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                        <span class="text-muted">所有学校平均得分率：</span>
+                        <span>78.3%</span>
+                    </div>
+                    <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                        <span class="text-muted">试卷名称：</span>
+                        <span><2017随堂同步导学></span>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:20px">
+                <div style="background-color: #d9edf7">
+                    <div style="border-bottom:1px dashed #bbb;padding: 10px;">
+                        <div class="label label-default laebl1" style="margin-left:10px">正弦</div>
+                        <div class="label label-default laebl1" style="margin-left:10px">立体几何</div>
+                        <div class="label label-default laebl1" style="margin-left:10px">立体几何文案</div>
+                    </div>
+                    <div style="padding:10px">
+                        3.过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经过区域 内的整点（即横纵坐标为整数的点）时直线的方程过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所光线所在直线经过区域 内的整点.的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经。到 轴被反射后经过.
+                    </div>
+                </div>
+                <div style="background-color:#eaf2f7;padding:10px;display:flex">
+                    <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                        <span class="text-muted">题型：</span>
+                        <span>填空题</span>
+                    </div>
+                    <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                        <span class="text-muted">共使用：</span>
+                        <span>3次</span>
+                    </div>
+                    <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                        <span class="text-muted">所有学校平均得分率：</span>
+                        <span>78.3%</span>
+                    </div>
+                    <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                        <span class="text-muted">试卷名称：</span>
+                        <span><2017随堂同步导学></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Page-wap text-center clearfix">
+            <div class="pagination-wap text-center" style="display: inline-block;">
+                <span class="totalNum pull-left"></span>
+                <div id="Pagination" class="pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var paginatorJ={"salePriceName":"","status":"","start":1,"pageSize":10};
+    $("#my-checkbox").bootstrapSwitch();
+    $("#my-checkbox").on('switchChange.bootstrapSwitch', function(event, state) {
+        console.log(this); // DOM element
+        console.log(event); // jQuery event
+        console.log(state); // true | false
+    });
+    $("#Pagination").pagination(20,{
+        items_per_page :10,
+        num_display_entries:3,
+        num_edge_entries:3,
+        callback : getDataList//回调函数
+    });
+    function getDataList(currPage){
+            paginatorJ.start=currPage+1;
+    }
+    $("#ex2").slider({});
+    $.timepicker.dateRange(
+        $("#inputData_start"),
+        $("#inputData_end")
+    );
+    var flag=0;
+    function showLevel(){
+        $("#allLevel").removeClass();
+        $("#baseLevel").removeClass();
+        $("#normalLevel").removeClass();
+        $("#hardLevel").removeClass();
+        $("#allLevel").addClass("label label-default");
+        $("#baseLevel").addClass("label label-default");
+        $("#normalLevel").addClass("label label-default");
+        $("#hardLevel").addClass("label label-default");
+        if(flag==0){
+            flag=1;
+            $("#showLevelBtn").css("display","none");
+            $("#level").css("display","inline-block");
+        }else{
+            flag=0;
+            $("#showLevelBtn").css("display","inline-block");
+            $("#level").css("display","none");
+        }
+    }
+    var flag2=0;
+    function showDate(){
+        $("#allDate").removeClass();
+        $("#weakDate").removeClass();
+        $("#monthDate1").removeClass();
+        $("#monthDate3").removeClass();
+        $("#monthDate6").removeClass();
+        $("#allDate").addClass("label label-default");
+        $("#weakDate").addClass("label label-default");
+        $("#monthDate1").addClass("label label-default");
+        $("#monthDate3").addClass("label label-default");
+        $("#monthDate6").addClass("label label-default");
+        if(flag2==0){
+            flag2=1;
+            $("#showDateBtn").css("display","none");
+            $("#dates").css("display","inline-block");
+        }else{
+            flag2=0;
+            $("#showDateBtn").css("display","inline-block");
+            $("#dates").css("display","none");
+        }
+    }
+
+    function updateLevel(){
+        showLevel();
+    }
+    function updateDate(){
+        showDate();
+    }
+
+    function updateSubType(obj,type){
+        if(type==0){
+            if($(obj).hasClass("label-info")){
+                $(obj).removeClass("label-info");
+                $(obj).next().removeClass("label-info");
+                $(obj).next().next().removeClass("label-info");
+                $(obj).next().next().next().removeClass("label-info");
+            }else{
+                $(obj).addClass("label-info");
+                if(!$(obj).next().hasClass("label-info")){
+                    $(obj).next().addClass("label-info");
+                }
+                if(!$(obj).next().next().hasClass("label-info")){
+                    $(obj).next().next().addClass("label-info");
+                }
+                if(!$(obj).next().next().next().hasClass("label-info")){
+                    $(obj).next().next().next().addClass("label-info");
+                }
+            }
+        }else{
+            if($(obj).hasClass("label-info")){
+                $(obj).removeClass("label-info");
+            }else{
+                $(obj).addClass("label-info");
+            }
+            if($("#allType").hasClass("label-info")){
+                $("#allType").removeClass("label-info");
+            }
+        }
+    }
+    function updateSubLevel(obj,type) {
+        if($("#showLevelBtn").css("display")=="none"){
+            flag=0;
+            $("#showLevelBtn").css("display","inline-block");
+            $("#level").css("display","none");
+        }
+        if(type==0){
+            if($("#allLevel").hasClass("label-info")){
+                $("#allLevel").removeClass("label-info");
+                $("#baseLevel").removeClass("label-info");
+                $("#normalLevel").removeClass("label-info");
+                $("#hardLevel").removeClass("label-info");
+            }else{
+                $("#allLevel").addClass("label-info");
+                if(!$("#baseLevel").hasClass("label-info")){
+                    $("#baseLevel").addClass("label-info");
+                }
+                if(!$("#normalLevel").hasClass("label-info")){
+                    $("#normalLevel").addClass("label-info");
+                }
+                if(!$("#hardLevel").hasClass("label-info")){
+                    $("#hardLevel").addClass("label-info");
+                }
+            }
+        }else{
+            if($(obj).hasClass("label-info")){
+                $(obj).removeClass("label-info");
+            }else{
+                $(obj).addClass("label-info");
+            }
+            if($("#allLevel").hasClass("label-info")){
+                $("#allLevel").removeClass("label-info");
+            }
+        }
+    }
+    function updateSubDate(obj,type) {
+        if($("#showDateBtn").css("display")=="none"){
+            flag2=0;
+            $("#showDateBtn").css("display","inline-block");
+            $("#dates").css("display","none");
+        }
+        if(type==0){
+            if($("#allDate").hasClass("label-info")){
+                $("#allDate").removeClass("label-info");
+                $("#weakDate").removeClass("label-info");
+                $("#monthDate1").removeClass("label-info");
+                $("#monthDate3").removeClass("label-info");
+                $("#monthDate6").removeClass("label-info");
+            }else{
+                $("#allDate").addClass("label-info");
+                if(!$("#weakDate").hasClass("label-info")){
+                    $("#weakDate").addClass("label-info");
+                }
+                if(!$("#monthDate1").hasClass("label-info")){
+                    $("#monthDate1").addClass("label-info");
+                }
+                if(!$("#monthDate3").hasClass("label-info")){
+                    $("#monthDate3").addClass("label-info");
+                }
+                if(!$("#monthDate6").hasClass("label-info")){
+                    $("#monthDate6").addClass("label-info");
+                }
+            }
+        }else{
+            if($(obj).hasClass("label-info")){
+                $(obj).removeClass("label-info");
+            }else{
+                $(obj).addClass("label-info");
+            }
+            if($("#allDate").hasClass("label-info")){
+                $("#allDate").removeClass("label-info");
+            }
+        }
+    }
+    function specialType(obj,type) {
+        if($(obj).hasClass("label-info")){
+            $(obj).removeClass("label-info");
+        }else{
+            $(obj).addClass("label-info");
+        }
+    }
+
+    var flag3 = 0;
+    function sort(type,obj){
+        if(type!=0){
+            if(flag3!=0){
+                if(type==flag3){
+                    if($("#sort"+type).children().first().hasClass("half_left")){
+                        $("#sort"+type).children().first().addClass("half_right");
+                        $("#sort"+type).children().first().removeClass("half_left");
+                    }else{
+                        $("#sort"+type).children().first().addClass("half_left");
+                        $("#sort"+type).children().first().removeClass("half_right");
+                    }
+                }else{
+                    $("#sort"+flag3).removeClass("text-primary");
+                    $("#sort"+flag3).children().first().removeClass("half_right");
+                    $("#sort"+flag3).children().first().removeClass("half_left");
+                    $("#sort"+type).addClass("text-primary");
+                    $("#sort"+type).children().first().addClass("half_left");
+                }
+            }else{
+                $("#sort"+flag3).removeClass("text-primary");
+                $("#sort"+flag3).children().first().removeClass("half_right");
+                $("#sort"+flag3).children().first().removeClass("half_left");
+                $("#sort"+type).addClass("text-primary");
+                $("#sort"+type).children().first().addClass("half_left");
+            }
+        }else{
+            $("#sort"+flag3).removeClass("text-primary");
+            $("#sort"+flag3).children().first().removeClass("half_right");
+            $("#sort"+flag3).children().first().removeClass("half_left");
+            $("#sort"+type).addClass("text-primary");
+        }
+        flag3=type;
+    }
+
+</script>
+</body>
+</html>

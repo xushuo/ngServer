@@ -8,7 +8,7 @@
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="js/jspdf.min.js" ></script>
-		<script type="text/javascript" src="js/html2canvas.min.js" ></script>
+		<script type="text/javascript" src="js/html2canvas.js" ></script>
 		<script type="text/javascript" src="js/canvas2image.js" ></script>
 	</head>
 	<style>
@@ -1037,7 +1037,7 @@
        var width = shareContent.offsetWidth; //获取dom 宽度
        var height = shareContent.offsetHeight; //获取dom 高度
        var canvas = document.createElement("canvas"); //创建一个canvas节点
-       var scale = 1; //定义任意放大倍数 支持小数
+       var scale = 2; //定义任意放大倍数 支持小数
        canvas.width = width * scale; //定义canvas 宽度 * 缩放
        canvas.height = height * scale; //定义canvas高度 *缩放
        canvas.getContext("2d").scale(scale,scale); //获取context,设置scale

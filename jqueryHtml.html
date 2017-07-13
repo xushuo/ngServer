@@ -14,9 +14,30 @@
     </div>
     <div class="panel-body">
         <form id="form" enctype="multipart/form-data">
-            <input type="text" id="name" name="name"> <input type="file" id="fileId" name="file"/>
+            <input type="text" id="name" name="name">
+            <input type="file" id="fileId" name="file"/>
         </form>
         <button type="button" onclick="submit()">提交</button>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">测试json</h3>
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-info" onclick="appendHTML()">添加json(HTML格式)</button>
+         <div id="dataJson"></div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">测试doc</h3>
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-info" onclick="docCombine()">合并word</button>
+         <div id="doc"></div>
     </div>
 </div>
 
@@ -26,6 +47,7 @@
 <script>
     function submit(){
         var form = new FormData(document.getElementById("form"));
+        console.log(form);
         $.ajax({
             url : 'http://localhost:3000/local/formTest',
             type : "post",
@@ -35,6 +57,27 @@
             contentType : false,
             success : function(data){
                 console.log(data);
+            }
+        })
+    }
+    function appendHTML(){
+        $.ajax({
+            url : './data.json',
+            type : "get",
+            dataType:"json",
+            success : function(data){
+                console.log(data);
+                $("#dataJson").html(data.data);
+            }
+        })
+    }
+    function docCombine(){
+        $.ajax({
+            url:"docs/word1.docx",
+            type:"post",
+            dateType:"String",
+            success:function(aa){
+                console.log(aa)
             }
         })
     }

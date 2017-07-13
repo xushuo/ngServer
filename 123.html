@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/jspdf.min.js" ></script>
+	<script type="text/javascript" src="js/html2canvas.js" ></script>
+	<script type="text/javascript" src="js/canvas2image.js" ></script>
+</head>
+<style>
+    body{
+        background-color: #fff
+    }
+table {
+	border-right: 1px solid  #808080;
+	border-bottom: 1px solid  #808080
+}
+table td {
+	border-left: 1px solid  #808080;
+	border-top: 1px solid  #808080;
+	text-align: center;
+}
+table td:nth-last-child(2) {
+background-color: #c4c4c4
+}
+table tbody> tr:nth-child(1) >td,table tbody> tr:nth-child(2) >td,table tbody> tr:nth-child(3) >td{
+ font-weight: bold;
+ background-color: rgb(166, 203, 229)
+}
+p{
+margin: 0
+}
+</style>
+<body>
+<button class="btn btn-info" onclick="download2()">下载PDF2</button>
+	<div class="container-fluid">
+        <img src="img/logo2.png" width="180px" style="margin-bottom:-50px" />
+        <div class="title" style="text-align: center;">
+            <div style="font-size: 25px;font-weight: bolder;padding: 10px;">财年季度销售价格表20170101-20170331</div>
+		</div>
+		<table>
+			<tbody>
+				<tr>
+					<td colspan="3" rowspan="3">项目</td>
+					<td rowspan="3">单位</td>
+					<td rowspan="3">说明</td>
+					<td colspan="8">单价（元）</td>
+					<td rowspan="3">数量</td>
+					<td rowspan="3">总价</td>
+					<td rowspan="3">备注</td>
+				</tr>
+				<tr>
+					<td colspan="3">总代理（按销售规模分级）</td>
+					<td colspan="3">市代理（按销售规模分级）</td>
+					<td colspan="2">终端价</td>
+				</tr>
+				<tr>
+					<td>三星</td>
+					<td>二星</td>
+					<td>一星</td>
+					<td>三星</td>
+					<td>二星</td>
+					<td>一星</td>
+					<td>最低报价</td>
+					<td>建议报价</td>
+				</tr>
+				<tr>
+					<td rowspan="4"><b>软件</b></td>
+					<td rowspan="2"><b>单科</b></td>
+					<td><b>含1年标准服务</b></td>
+					<td><b>科</b></td>
+					<td rowspan="2">单个学科，可供全年级使用</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>含3年标准服务</b></td>
+					<td><b>科</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>购买3年标准服务，后2年服务费8折</td>
+				</tr>
+				<tr>
+					<td rowspan="2"><b>全科</b></td>
+					<td><b>含1年标准服务</b></td>
+					<td><b>科</b></td>
+					<td rowspan="2">购买五科以上，享受全科服务</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>含3年标准服务</b></td>
+					<td><b>科</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>购买3年标准服务，后2年服务费8折</td>
+				</tr>
+				<tr>
+					<td colspan="14" style="text-align: right;background-color: #e8e8e8"><b>小计</b></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="3"><b>硬件</b></td>
+					<td><b>A4阅卷仪</b></td>
+					<td><b>虹光AT440</b></td>
+					<td><b>台</b></td>
+					<td></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>A3阅卷仪</b></td>
+					<td><b>佳能 DR-M1060</b></td>
+					<td><b>台</b></td>
+					<td></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>总代单次购买10台以上21500元/台</td>
+				</tr>
+				<tr>
+					<td><b>阅卷仪保障费</b></td>
+					<td><b>阅卷仪授权费</b></td>
+					<td><b>台</b></td>
+					<td>已有以上同型号设备方可购买</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>为保障设备稳定性建议采购新机器</td>
+				</tr>
+				<tr> 
+					<td colspan="14" style="text-align: right;background-color: #e8e8e8"><b>小计</b></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="6"><b>套餐</b></td>
+					<td rowspan="2"><b>主科包</b></td>
+					<td><b>含1年标准服务</b></td>
+					<td><b>套</b></td>
+					<td rowspan="2"><p>主科包括（买三打8折）：</p><p>语、数、英</p></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>含3年标准服务</b></td>
+					<td><b>套</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>购买3年标准服务，后2年服务费8折</td>
+				</tr>
+				<tr>
+					<td rowspan="2"><b>文科包</b></td>
+					<td><b>含1年标准服务</b></td>
+					<td><b>套</b></td>
+					<td rowspan="2"><p>文科包括（买四送二）：</p><p>语、数、英、政、史、地</p></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>含3年标准服务</b></td>
+					<td><b>套</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>购买3年标准服务，后2年服务费8折</td>
+				</tr>
+				<tr>
+					<td rowspan="2"><b>理科包</b></td>
+					<td><b>含1年标准服务</b></td>
+					<td><b>套</b></td>
+					<td rowspan="2"><p>理科包括（买四送二）：</p><p>语、数、英、物、化、生</p></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>含3年标准服务</b></td>
+					<td><b>套</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>购买3年标准服务，后2年服务费8折</td>
+				</tr>
+ 				<tr>
+					<td colspan="14" style="text-align: right;background-color: #e8e8e8"><b>小计</b></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="5"><b>软件服务</b></td>
+					<td><b>单科</b></td>
+					<td rowspan="5"><b>标准服务年费</b></td>
+					<td rowspan="5"><b>年</b></td>
+					<td rowspan="5"><p>年费服务内容包括：</p><p>1、软件设备安装</p><p>2、首次使用培训</p><p>3、定期硬件巡检</p><p>4、软件升级</p><p>5、400客服服务</p></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>全科</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>服务费享受买五送四</td>
+				</tr>
+				<tr>
+					<td><b>主科包</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>服务费享受买三打8折</td>
+				</tr>
+				<tr>
+					<td><b>文科包</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>服务费享受买四送二</td>
+				</tr>
+				<tr>
+					<td><b>理科包</b></td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td>服务费享受买四送二</td>
+				</tr>
+				<tr>
+					<td colspan="14" style="text-align: right;background-color: #e8e8e8"><b>小计</b></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="2"><b>驻场服务</b></td>
+					<td rowspan="2" colspan="2"><b>专人全职服务学校所有极课服务</b></td>
+					<td><b>1学期</b></td>
+					<td rowspan="2">由总代理或二级代理派驻</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>1学年</b></td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="14" style="text-align: right;background-color: #e8e8e8"><b>小计</b></td>
+					<td></td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><b>应用服务</b></td>
+					<td colspan="2"><b>学校数据应用等升级培训<p>（总公司人员）</p></b></td>
+					<td><b>每人每天</b></td>
+					<td>由总公司直接派认证服务人员参与</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td></td>
+					<td>-</td>
+					<td rowspan="2"><p>1、不含差旅费</p><p>2、实际工作量双方确认工单</p><p>3、服务商人员经过官方认证</p></td>
+				</tr>
+				<tr>
+					<td><b>应用服务</b></td>
+					<td colspan="2"><b>学校数据应用等升级培训<p>（服务商人员）</p></b></td>
+					<td><b>每人每天</b></td>
+					<td>由总公司派认证服务人员参与</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td>00,000</td>
+					<td style="background-color: #fff"></td>
+					<td style="background-color: #c4c4c4">-</td>
+				</tr>
+				<tr>
+					<td colspan="14" style="text-align: right;background-color: #e8e8e8"><b>小计</b></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="14" style="background-color: #c4c4c4"><b>总计</b></td>
+					<td>-</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<br></br >
+		<p><b>备注：</b></p>
+		<p>1、软件与套餐项为二选一，请勿重复购买</p>
+		<p>2、硬件项阅卷仪型号为极课软件测试过的型号，可确保使用过程中阅卷准确率</p>
+		<p>3、软件服务可根据实际情况选择购买</p>
+		<p>4、买五送四为渠道政策，合作伙伴针对一个学校一次性采购五科才可享受此政策</p>
+		<p>5、按季度发布价格政策，新价格政策发布前，沿用原政策</p>
+		<br></br >
+		<p>*此价格解释权归江苏曲速教育科技有限公司所有</p>
+	</div>
+	<script>
+
+        function download2(){
+            var shareContent = document.body;//需要截图的包裹的（原生的）DOM 对象
+            var width = shareContent.offsetWidth; //获取dom 宽度
+            var height = shareContent.offsetHeight; //获取dom 高度
+            var canvas = document.createElement("canvas"); //创建一个canvas节点
+            var scale = 2; //定义任意放大倍数 支持小数
+            canvas.width = width * scale; //定义canvas 宽度 * 缩放
+            canvas.height = height * scale; //定义canvas高度 *缩放
+            canvas.getContext("2d").scale(scale, scale); //获取context,设置scale
+            var opts = {
+                scale : scale, // 添加的scale 参数
+                canvas : canvas, //自定义 canvas
+                logging : true, //日志开关
+                width : width, //dom 原始宽度
+                height : height //dom 原始高度
+            };
+            console.log("width:" + width);
+            console.log("height:" + height);
+            html2canvas(shareContent, opts).then(function(canvas){
+                //如果想要生成图片 引入canvas2Image.js 下载地址：
+                //https://github.com/hongru/canvas2image/blob/master/canvas2image.js
+                //var img = Canvas2Image.convertToImage(canvas, canvas.width, canvas.height);
+                //  $("#imgCreate").html(img);
+                var imgData = canvas.toDataURL("image/JPEG", 1.0);
+                //Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height);
+                var doc = new jsPDF('p', 'px', [height,width]);
+                //  doc.addPage();
+                doc.addImage(imgData, 'JPEG', 10, 10, height,width);
+                doc.save('test.pdf');
+                // window.location.href=imgData;
+            });
+        }
+
+	</script>
+</body>
+</html>
