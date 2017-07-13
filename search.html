@@ -6,17 +6,19 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-switch.css">
     <link rel="stylesheet" type="text/css" href="css/pagination.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
-    <link rel="stylesheet" type="text/css" href="css/dateTimePicker/lanrenzhijia.css">
     <link rel="stylesheet" type="text/css" href="css/dateTimePicker/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/dateTimePicker/lanrenzhijia.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap-switch.js"></script>
     <script src="js/jquery.pagination.js"></script>
-    <script src="js/bootstrap-slider.min.js"></script>
+
     <script src="js/dateTimePicker/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="js/dateTimePicker/jquery.ui.datepicker-zh-CN.js"></script>
     <script src="js/dateTimePicker/jquery-ui-timepicker-addon.js"></script>
     <script src="js/dateTimePicker/jquery-ui-timepicker-zh-CN.js"></script>
+
+    <script src="js/bootstrap-slider.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <style>
@@ -113,7 +115,7 @@
                             自定义
                         </div>
                         <div  style="margin-left: 10px;border: 1px solid #e8e8e8;display: none;padding: 3px;" id="level">
-                            得分率: <b>0</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="0" data-slider-max="100" data-slider-step="10" data-slider-value="[20,40]"/>
+                            得分率: <b>0</b> <input id="inputLevel" type="text" class="span2" value="" data-slider-min="0" data-slider-max="100" data-slider-step="10" data-slider-value="[20,40]"/>
                             <b>100%</b>
                             <button class="btn btn-primary btn-xs" onclick="updateLevel()" id="Qsubmitlevel">取消</button>
                             <button class="btn btn-primary btn-xs" onclick="updateLevel()">确定</button>
@@ -248,11 +250,11 @@
     function getDataList(currPage){
             paginatorJ.start=currPage+1;
     }
-    $("#ex2").slider({});
     $.timepicker.dateRange(
         $("#inputData_start"),
         $("#inputData_end")
     );
+    $("#inputLevel").bootstrapSlider({});
     var flag=0;
     function showLevel(){
         $("#allLevel").removeClass();
