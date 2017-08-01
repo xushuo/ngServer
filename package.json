@@ -16,6 +16,7 @@
     "express": "~4.14.1",
     "formidable": "^1.1.1",
     "morgan": "~1.7.0",
+    "officegen": "^0.4.5",
     "serve-favicon": "~2.3.2",
     "ws": "^3.0.0"
   }

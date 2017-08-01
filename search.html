@@ -89,19 +89,19 @@
                     <div class="label label-primary" style="padding: 10px;display: inline-block;">按知识点选题</div>
                     <div class="label label-primary" style="padding: 10px;display: inline-block;">按章节选题</div>
                     <div class="input-group pull-right" style="width:400px">
-                        <input type="text" class="form-control" placeholder="输入关键字">
+                        <input type="text" class="form-control" placeholder="输入关键字" id="searchInput">
                         <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">搜索</button>
+                        <button class="btn btn-default" type="button" onclick="search()">搜索</button>
                       </span>
                     </div><!-- /input-group -->
                 </div>
                 <div style="display:flex;margin-top:20px">
                     <div style="padding: 5px; width: 100px;">题型</div><span style="padding: 5px;" class="text-muted">|</span>
-                    <div style="padding:5px 20px">
+                    <div style="padding:5px 20px" id="typeGroup">
                         <div class="label label-default " style="margin-left:10px" id="allType" onclick="updateSubType(this,0)">全部</div>
-                        <div class="label label-default" style="margin-left:10px" onclick="updateSubType(this,1)">填空题</div>
-                        <div class="label label-default" style="margin-left:10px" onclick="updateSubType(this,2)">解答题</div>
-                        <div class="label label-default" style="margin-left:10px" onclick="updateSubType(this,3)">选择题</div>
+                        <div class="label label-default" style="margin-left:10px" id="type2" onclick="updateSubType(this,1)">填空题</div>
+                        <div class="label label-default" style="margin-left:10px" id="type3" onclick="updateSubType(this,2)">解答题</div>
+                        <div class="label label-default" style="margin-left:10px" id="type4" onclick="updateSubType(this,3)">选择题</div>
                     </div>
                 </div>
                 <div style="display:flex;margin-top:20px">
@@ -163,7 +163,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div id="results">
             <div style="margin-top:20px">
                 <div style="background-color: #d9edf7">
                     <div style="border-bottom:1px dashed #bbb;padding: 10px;">
@@ -225,36 +225,123 @@
                 </div>
             </div>
         </div>
+        <p class="Nosearch" style="display: none;text-align: center;margin-top: 20px;"></p>
         <div class="Page-wap text-center clearfix">
             <div class="pagination-wap text-center" style="display: inline-block;">
-                <span class="totalNum pull-left"></span>
+                <span class="totalNum pull-left" style="margin: 20px 10px 0 0;"></span>
                 <div id="Pagination" class="pagination"></div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    var paginatorJ={"salePriceName":"","status":"","start":1,"pageSize":10};
+    var url  ="http://172.17.35.135:8080/searchAction/search.json";
+    var url2  ="http://172.17.35.135:8080/searchAction/search.json?condition=%7B%22content%22:%7B%22searchWord%22:%22%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%22,%22startLastUpdateTime%22:%2220160918%2012:35:23%22,%22form%22:%222%22,%22size%22:%2220%22%7D%7D&sortFields=%7B%22content%22:[%7B%22lastUpdateTime%22:%22desc%22%7D]%7D";
+
+    var dataJson = {
+        condition: {
+            content: {
+                searchWord:'',
+                exercisesType:'',
+                pageNum: 1,
+                size: 200
+            },
+        },
+        sortFields: {}
+    };
     $("#my-checkbox").bootstrapSwitch();
     $("#my-checkbox").on('switchChange.bootstrapSwitch', function(event, state) {
         console.log(this); // DOM element
         console.log(event); // jQuery event
         console.log(state); // true | false
     });
-    $("#Pagination").pagination(20,{
-        items_per_page :10,
-        num_display_entries:3,
-        num_edge_entries:3,
-        callback : getDataList//回调函数
-    });
+
+    var initFlag=true;
+    function search(){
+        dataJson.condition.content.searchWord=$("#searchInput").val();
+        initFlag=true;
+        getDataList(0);
+    }
     function getDataList(currPage){
-            paginatorJ.start=currPage+1;
+        dataJson.condition.content.pageNum=currPage+1;
+        console.log(dataJson);
+        $.ajax({
+            url:url,
+            type:"get",
+            data:{
+                condition:  JSON.stringify(dataJson.condition),
+                sortFields: {}
+            },
+            dateType:"json",
+            /*dateType:"jsonp",
+            crossDomain: true,*/
+            success:function(data){
+                console.log(data);
+                $("#results").html("");
+                var html='';
+                if(data.pageContent!=undefined&&data.pageContent.indexList!=undefined&&data.pageContent.indexList!=''){
+                    data.pageContent.indexList.map(function(item, index){
+                        html += '<div style="margin-top:20px">';
+                        html += '<div style="background-color: #d9edf7">';
+                        html += '<div style="border-bottom:1px dashed #bbb;padding: 10px;">';
+                        html += '<div class="label label-default laebl1" style="margin-left:10px">正弦</div>';
+                        html += '<div class="label label-default laebl1" style="margin-left:10px">立体几何</div>';
+                        html += '<div class="label label-default laebl1" style="margin-left:10px">立体几何文案</div>';
+                        html += '</div>';
+                        html += '<div style="padding:10px">' + item.exercisesStem + '</div>';
+                        html += '</div>';
+                        html += '<div style="background-color:#eaf2f7;padding:10px;display:flex">';
+                        html += '<div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">';
+                        html += '<span class="text-muted">题型：</span>';
+                        html += '<span>填空题</span>';
+                        html += '</div>';
+                        html += '<div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">';
+                        html += '<span class="text-muted">共使用：</span>';
+                        html += '<span>3次</span>';
+                        html += '</div>';
+                        html += '<div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">';
+                        html += '<span class="text-muted">所有学校平均得分率：</span>';
+                        html += '<span>78.3%</span>';
+                        html += '</div>';
+                        html += '<div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">';
+                        html += '<span class="text-muted">试卷名称：</span>';
+                        html += '<span><2017随堂同步导学></span>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                    })
+                }
+                $("#results").html(html);
+                var count=0;
+                count = data.pageContent!=undefined&&data.pageContent.searchCount!=undefined?data.pageContent.searchCount:0;
+                if (initFlag) {
+                    $("#Pagination").pagination(count,{
+                        items_per_page :dataJson.condition.content.size,
+                        num_display_entries:3,
+                        num_edge_entries:3,
+                        callback : getDataList//回调函数
+                    });
+                    initFlag=false;
+                }
+                $('.totalNum').html('共'+count+'条');
+                if(count==0){
+                    $('#results').hide();
+                    $('.Nosearch').show().html('查无结果!');
+                }else{
+                    $('#results').show();
+                    $('.Nosearch').html('').hide();
+                }
+            }
+        })
     }
     $.timepicker.dateRange(
         $("#inputData_start"),
         $("#inputData_end")
     );
     $("#inputLevel").bootstrapSlider({});
+    $("#allType").trigger("click");
+    $("#allLevel").trigger("click");
+    $("#allDate").trigger("click");
     var flag=0;
     function showLevel(){
         $("#allLevel").removeClass();
@@ -305,36 +392,30 @@
         showDate();
     }
 
+    //题型
     function updateSubType(obj,type){
         if(type==0){
-            if($(obj).hasClass("label-info")){
-                $(obj).removeClass("label-info");
-                $(obj).next().removeClass("label-info");
-                $(obj).next().next().removeClass("label-info");
-                $(obj).next().next().next().removeClass("label-info");
-            }else{
-                $(obj).addClass("label-info");
-                if(!$(obj).next().hasClass("label-info")){
-                    $(obj).next().addClass("label-info");
+            if(!$("#allType").hasClass("label-info")){
+                $("#allType").addClass("label-info");
+                if(!$("#type2").hasClass("label-info")){
+                    $("#type2").addClass("label-info");
                 }
-                if(!$(obj).next().next().hasClass("label-info")){
-                    $(obj).next().next().addClass("label-info");
+                if(!$("#type3").hasClass("label-info")){
+                    $("#type3").addClass("label-info");
                 }
-                if(!$(obj).next().next().next().hasClass("label-info")){
-                    $(obj).next().next().next().addClass("label-info");
+                if(!$("#type4").hasClass("label-info")){
+                    $("#type4").addClass("label-info");
                 }
             }
         }else{
-            if($(obj).hasClass("label-info")){
-                $(obj).removeClass("label-info");
-            }else{
-                $(obj).addClass("label-info");
-            }
-            if($("#allType").hasClass("label-info")){
-                $("#allType").removeClass("label-info");
-            }
+            $("#allType").removeClass("label-info");
+            $("#type2").removeClass("label-info");
+            $("#type3").removeClass("label-info");
+            $("#type4").removeClass("label-info");
+            $(obj).addClass("label-info");
         }
     }
+
     function updateSubLevel(obj,type) {
         if($("#showLevelBtn").css("display")=="none"){
             flag=0;
@@ -369,6 +450,10 @@
                 $("#allLevel").removeClass("label-info");
             }
         }
+        $("#typeGroup").children().map(function(index,item){
+            console.log(item.id.substring(item.id.length-1));
+            dataJson.condition.content.exercisesType=item.id.substring(item.id.length-1)=='e'?'1':item.id.substring(item.id.length-1);
+        })
     }
     function updateSubDate(obj,type) {
         if($("#showDateBtn").css("display")=="none"){
@@ -451,6 +536,7 @@
         }
         flag3=type;
     }
+
 
 </script>
 </body>
