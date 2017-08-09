@@ -118,6 +118,18 @@
                 </div>
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading clearfix">
+                <span style="display: inline-block;margin-top: 7px;font-weight:bold">查询信息</span>
+            </div>
+            <div class="panel-body">
+                <p><strong>请求地址：</strong><span id="searchOutput1"></span></p>
+                <p><strong>请求参数：</strong><span id="searchOutput2"></span></p>
+                <p><strong>请求时间：</strong><span id="searchOutput3"></span></p>
+                <p><strong>返回结果：</strong><textarea class="form-control" rows="5" id="searchOutput4"></textarea>
+                 </p>
+            </div>
+        </div>
     </div>
     <div class="col-xs-9">
         <div class="panel panel-primary">
@@ -277,6 +289,7 @@
     </div>
 </div>
 <script>
+    var htmlURL = 'http://172.17.35.127/';
     var url  ="http://172.17.35.138:8080/searchAction/search.json";
     var url1  ="http://172.17.35.138:8091/searchAction/search.json";
     var url2  ="http://172.17.35.135:8080/searchAction/search.json?condition=%7B%22content%22:%7B%22searchWord%22:%22%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%22,%22startLastUpdateTime%22:%2220160918%2012:35:23%22,%22form%22:%222%22,%22size%22:%2220%22%7D%7D&sortFields=%7B%22content%22:[%7B%22lastUpdateTime%22:%22desc%22%7D]%7D";
@@ -477,6 +490,9 @@
     }
     function getDataList(currPage,condition){
      //   dataJson.condition.content.pageNum=currPage+1;
+        $("#searchOutput1").html(url);
+        $("#searchOutput2").html(JSON.stringify(condition));
+        var timestampStart = Date.parse(new Date());
         $.ajax({
             url:url,
             type:"get",
@@ -487,7 +503,10 @@
             /*dateType:"jsonp",
             crossDomain: true,*/
             success:function(data){
+                var timestampEnd = Date.parse(new Date());
                 console.log(data);
+                $("#searchOutput3").html((timestampEnd-timestampStart)+"毫秒");
+                $("#searchOutput4").val(JSON.stringify(data));
                 $("#results").html("");
                 var html='';
                 if(data.pageContent!=undefined&&data.pageContent.indexList!=undefined&&data.pageContent.indexList!=''){
@@ -503,7 +522,7 @@
                         var temp = item.ex_url.split('||');
                         temp.map(function(item1,index1){
                             if(index1===0)
-                            html += '<iframe  src="http://172.17.35.126/'+item1+'"  style="width: 100%;height: 100%;border: 0;" ></iframe>';
+                            html += '<iframe  src="'+htmlURL+item1+'"  style="width: 100%;height: 100%;border: 0;" ></iframe>';
                         });
                         html += '</div></div>';
                         html += '<div style="background-color:#eaf2f7;padding:10px;display:flex">';
