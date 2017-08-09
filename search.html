@@ -492,7 +492,7 @@
      //   dataJson.condition.content.pageNum=currPage+1;
         $("#searchOutput1").html(url);
         $("#searchOutput2").html(JSON.stringify(condition));
-        var timestampStart = Date.parse(new Date());
+        var timestampStart = Date.now()
         $.ajax({
             url:url,
             type:"get",
@@ -503,7 +503,7 @@
             /*dateType:"jsonp",
             crossDomain: true,*/
             success:function(data){
-                var timestampEnd = Date.parse(new Date());
+                var timestampEnd =Date.now()
                 console.log(data);
                 $("#searchOutput3").html((timestampEnd-timestampStart)+"毫秒");
                 $("#searchOutput4").val(JSON.stringify(data));
