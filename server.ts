@@ -46,6 +46,10 @@ export class Report {
                 public subject: string) {
     }
 }
+export class TableList {
+    constructor(public id: number, public name: string, public belongSys: string, public version: string, public updateTime: Date, public creatTime: Date, public updateNote: string) {
+    }
+}
 const reports: Report[] = [
     new Report(1, '江苏省宝应中学高三双周测试2', new Date(1496906833297), '高一', '2班', '月考', '语文，数学，外语，物理，政治，地理，历史，生物'),
     new Report(2, '江苏省宝应中学高三双周测试3', new Date(1496800116618), '高一', '8班', '月考', '语文，数学，外语，物理，政治，地理，历史，生物'),
@@ -60,6 +64,11 @@ const reports: Report[] = [
     new Report(11, '江苏省宝应中学高三双周测试11', new Date(1296800116618), '高一', '8班', '月考', '外语，物理，政治，地理，历史，生物'),
     new Report(12, '江苏省宝应中学高三双周测试12', new Date(1196800116618), '高二', '2班', '月考', '外语，物理，政治，地理，历史，生物')
 ];
+const tableList: TableList[]=[
+    new TableList(0,'分析报告','','1.2',new Date(1196800116618),'',''),
+    new TableList(1,'CRM','','1.6',new Date(1196802316618),'',''),
+    new TableList(2,'BI系统','','1.4',new Date(1196400116618),'','')
+]
 const series1 = [
     {
         name: '满分',
@@ -119,11 +128,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 
-app.all('*', function(req, res, next) {
+app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By",' 3.2.1')
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1')
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
@@ -186,20 +195,43 @@ app.use('/api/products/:id', function (req, res) {
     res.json(stocks.find((e) => e.id == req.params.id));
 });
 app.use('/api/products', function (req, res) {
-    console.log({body:req});
+    console.log({body: req});
     res.json(stocks);
 });
 
+app.use('/api/func/list', function (req, res) {
+    console.log({page: req.query.page,msg:"func"});
+    if (req.query.page == 1) {
+        res.json({
+            currentPage: 1,
+            maxPage: 11,
+            data: [tableList[0], tableList[1]]
+        });
+    } else if (req.query.page == 2) {
+        res.json({
+            currentPage: 2,
+            maxPage: 11,
+            data: [tableList[0], tableList[1], tableList[2]]
+        });
+    } else {
+        res.json({
+            currentPage: 3,
+            maxPage: 11,
+            data: [tableList[1], tableList[2]]
+        });
+    }
+});
 
 app.use('/local/formTest', function (req, res) {
     var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-        console.log('fields',fields);//表单传递的input数据
-        console.log('files',files);//上传文件数据
+    form.parse(req, function (err, fields, files) {
+        console.log('fields', fields);//表单传递的input数据
+        console.log('files', files);//上传文件数据
         //do somthing......
-        res.send({data:'success'});
+        res.send({data: 'success'});
     });
 });
+
 
 const subscriptions = new Set<any>();
 const wsServer = new Server({port: 8085});
@@ -218,6 +250,8 @@ setInterval(() => {
     })
 }, 3000)
 
-const server = app.listen(3000 'localhost', () => {
-    console.log('服务已启动 localhost：3000')
-})
+const server = app.listen(3000
+'192.168.31.63', () => {
+    console.log('服务已启动 192.168.31.63：3000')
+}
+)

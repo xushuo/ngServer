@@ -50,6 +50,19 @@ var Report = (function () {
     return Report;
 }());
 exports.Report = Report;
+var TableList = (function () {
+    function TableList(id, name, belongSys, version, updateTime, creatTime, updateNote) {
+        this.id = id;
+        this.name = name;
+        this.belongSys = belongSys;
+        this.version = version;
+        this.updateTime = updateTime;
+        this.creatTime = creatTime;
+        this.updateNote = updateNote;
+    }
+    return TableList;
+}());
+exports.TableList = TableList;
 var reports = [
     new Report(1, '江苏省宝应中学高三双周测试2', new Date(1496906833297), '高一', '2班', '月考', '语文，数学，外语，物理，政治，地理，历史，生物'),
     new Report(2, '江苏省宝应中学高三双周测试3', new Date(1496800116618), '高一', '8班', '月考', '语文，数学，外语，物理，政治，地理，历史，生物'),
@@ -63,6 +76,11 @@ var reports = [
     new Report(10, '江苏省宝应中学高三双周测试10', new Date(1496800116618), '高一', '2班', '月考', '语文，外语，物理，政治，地理，历史，生物'),
     new Report(11, '江苏省宝应中学高三双周测试11', new Date(1296800116618), '高一', '8班', '月考', '外语，物理，政治，地理，历史，生物'),
     new Report(12, '江苏省宝应中学高三双周测试12', new Date(1196800116618), '高二', '2班', '月考', '外语，物理，政治，地理，历史，生物')
+];
+var tableList = [
+    new TableList(0, '分析报告', '', '1.2', new Date(1196800116618), '', ''),
+    new TableList(1, 'CRM', '', '1.6', new Date(1196802316618), '', ''),
+    new TableList(2, 'BI系统', '', '1.4', new Date(1196400116618), '', '')
 ];
 var series1 = [
     {
@@ -190,6 +208,30 @@ app.use('/api/products', function (req, res) {
     console.log({ body: req });
     res.json(stocks);
 });
+app.use('/api/func/list', function (req, res) {
+    console.log({ page: req.query.page, msg: "func" });
+    if (req.query.page == 1) {
+        res.json({
+            currentPage: 1,
+            maxPage: 11,
+            data: [tableList[0], tableList[1]]
+        });
+    }
+    else if (req.query.page == 2) {
+        res.json({
+            currentPage: 2,
+            maxPage: 11,
+            data: [tableList[0], tableList[1], tableList[2]]
+        });
+    }
+    else {
+        res.json({
+            currentPage: 3,
+            maxPage: 11,
+            data: [tableList[1], tableList[2]]
+        });
+    }
+});
 app.use('/local/formTest', function (req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
@@ -216,6 +258,6 @@ setInterval(function () {
         }
     });
 }, 3000);
-var server = app.listen(3000, 'localhost', function () {
-    console.log('服务已启动 localhost：3000');
+var server = app.listen(3000, '192.168.31.63', function () {
+    console.log('服务已启动 192.168.31.63：3000');
 });

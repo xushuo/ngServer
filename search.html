@@ -1,304 +1,434 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>搜索</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-switch.css">
-    <link rel="stylesheet" type="text/css" href="css/pagination.css">
-    <link rel="stylesheet" type="text/css" href="css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="css/dateTimePicker/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="css/dateTimePicker/lanrenzhijia.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap-switch.js"></script>
-    <script src="js/jquery.pagination.js"></script>
-    <script src="js/select2/select2.js"></script>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>搜索</title>
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-switch.css">
+        <link rel="stylesheet" type="text/css" href="css/pagination.css">
+        <link rel="stylesheet" type="text/css" href="css/select2.min.css">
+        <link rel="stylesheet" type="text/css" href="css/dateTimePicker/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="css/dateTimePicker/lanrenzhijia.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap-switch.js"></script>
+        <script src="js/jquery.pagination.js"></script>
+        <script src="js/select2/select2.js"></script>
 
-    <script src="js/dateTimePicker/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="js/dateTimePicker/jquery.ui.datepicker-zh-CN.js"></script>
-    <script src="js/dateTimePicker/jquery-ui-timepicker-addon.js"></script>
-    <script src="js/dateTimePicker/jquery-ui-timepicker-zh-CN.js"></script>
+        <script src="js/dateTimePicker/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="js/dateTimePicker/jquery.ui.datepicker-zh-CN.js"></script>
+        <script src="js/dateTimePicker/jquery-ui-timepicker-addon.js"></script>
+        <script src="js/dateTimePicker/jquery-ui-timepicker-zh-CN.js"></script>
 
-    <script src="js/bootstrap-slider.js"></script>
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <style>
-        .label{
-            cursor:pointer;
-        }
-        .label-default{
-            background-color:#bbb;
-        }
-        .glyphicon{
-            cursor:pointer;
-        }
-        .half_left{
-            background: -webkit-linear-gradient(-180deg, #b5b5b5 53%, #5bc0de 1%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .half_right{
-            background: -webkit-linear-gradient(-180deg, #5bc0de 53%, #b5b5b5 1%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .laebl1{
-            color:#333;
-            background-color:#f9f9f9;
-        }
-        .label-info {
-            background-color: #5bc0de;
-        }
-        .label-warning {
-            background-color: #f0ad4e;
-        }
-        .flexcLass{
-            display:flex;
-        }
-        .flexcLass > label{
-            padding:7px;
-        }
-    </style>
+        <script src="js/bootstrap-slider.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <style>
+                .label {
+                        cursor: pointer;
+                }
+
+                .label-default {
+                        background-color: #bbb;
+                }
+
+                .glyphicon {
+                        cursor: pointer;
+                }
+
+                .half_left {
+                        background: -webkit-linear-gradient(-180deg, #b5b5b5 53%, #5bc0de 1%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                }
+
+                .half_right {
+                        background: -webkit-linear-gradient(-180deg, #5bc0de 53%, #b5b5b5 1%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                }
+
+                .laebl1 {
+                        color: #333;
+                        background-color: #f9f9f9;
+                }
+
+                .label-info {
+                        background-color: #5bc0de;
+                }
+
+                .label-warning {
+                        background-color: #f0ad4e;
+                }
+
+                .flexcLass {
+                        display: flex;
+                }
+
+                .flexcLass > label {
+                        padding: 7px;
+                }
+        </style>
 </head>
 <body>
 <div class="container-fluid" style="padding-top:20px">
-    <div class="col-xs-3">
-        <div class="panel panel-primary">
-            <div class="panel-heading clearfix">
-                <span style="display: inline-block;margin-top: 7px;font-weight:bold">知识点目录</span>
-                <div class="switch pull-right hidden">
-                    <input type="checkbox" id="my-checkbox" data-size="small"  data-on-text="单选" data-off-text="多选" checked="checked" data-inverse="true"/>
+        <div class="col-xs-3">
+                <div class="panel panel-primary">
+                        <div class="panel-heading clearfix">
+                                <span style="display: inline-block;margin-top: 7px;font-weight:bold">知识点目录</span>
+                                <div class="switch pull-right hidden">
+                                        <input type="checkbox" id="my-checkbox" data-size="small" data-on-text="单选"
+                                               data-off-text="多选" checked="checked" data-inverse="true"/>
+                                </div>
+                        </div>
+                        <div class="panel-body">
+                                <div style="padding: 10px;background-color:#d9edf7">
+                                        <div style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #d9d9d9;">
+                                                <div class="form-group clearfix">
+                                                        <label for="searchInput1" class="control-label">查询条数</label>
+                                                        <input type="text" class="form-control" id="searchInput1"
+                                                               value="10">
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                        <label for="searchInput2" class="control-label">科目</label>
+                                                        <select class="form-control" id="searchInput2">
+                                                                <option value="1" selected>数学</option>
+                                                                <option value="2">语文</option>
+                                                                <option value="3">英语</option>
+                                                                <option value="4">物理</option>
+                                                                <option value="5">化学</option>
+                                                                <option value="6">生物</option>
+                                                                <option value="7">政治</option>
+                                                                <option value="8">历史</option>
+                                                                <option value="9">地理</option>
+                                                                <option value="10">信息</option>
+                                                        </select>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                        <label for="searchInput3" class="control-label">学段</label>
+                                                        <select class="form-control" id="searchInput3">
+                                                                <option value="1" selected>高中</option>
+                                                                <option value="2">初中</option>
+                                                                <option value="3">小学</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="form-group clearfix">
+                                                <label for="searchInputK1" class="control-label"
+                                                       style="padding-top: 8px;">一级知识点</label>
+                                                <input type="text" class="form-control" id="searchInputK1">
+                                        </div>
+                                        <div class="form-group clearfix">
+                                                <label for="searchInputK2" class="control-label"
+                                                       style="padding-top: 8px;">二级知识点</label>
+                                                <input type="text" class="form-control" id="searchInputK2">
+                                        </div>
+                                        <div class="form-group clearfix">
+                                                <label for="searchInputK3" class="control-label"
+                                                       style="padding-top: 8px;">三级知识点</label>
+                                                <input type="text" class="form-control" id="searchInputK3">
+                                        </div>
+                                </div>
+                        </div>
                 </div>
-            </div>
-            <div class="panel-body">
-                <div style="padding: 10px;background-color:#d9edf7">
-                    <div    style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #d9d9d9;">
-                        <div class="form-group clearfix">
-                            <label for="searchInput1" class="control-label">查询条数</label>
-                            <input type="text" class="form-control"    id="searchInput1" value="10">
+                <div class="panel panel-primary">
+                        <div class="panel-heading clearfix">
+                                <span style="display: inline-block;margin-top: 7px;font-weight:bold">查询信息</span>
                         </div>
-                        <div class="form-group clearfix">
-                            <label for="searchInput2" class="control-label">科目</label>
-                            <select class="form-control"  id="searchInput2" >
-                                <option value="1" selected>数学</option>
-                                <option value="2">语文</option>
-                                <option value="3">英语</option>
-                                <option value="4">物理</option>
-                                <option value="5">化学</option>
-                                <option value="6">生物</option>
-                                <option value="7">政治</option>
-                                <option value="8">历史</option>
-                                <option value="9">地理</option>
-                                <option value="10">信息</option>
-                            </select>
+                        <div class="panel-body">
+                                <p><strong>请求地址：</strong><span id="searchOutput1"></span></p>
+                                <p><strong>请求参数：</strong><textarea class="form-control" rows="5"
+                                                                   id="searchOutput2"></textarea></p>
+                                <p><strong>请求时间：</strong><span id="searchOutput3"></span></p>
+                                <p><strong>返回结果：</strong><textarea class="form-control" rows="5"
+                                                                   id="searchOutput4"></textarea></p>
                         </div>
-                        <div class="form-group clearfix">
-                            <label for="searchInput3" class="control-label">学段</label>
-                            <select class="form-control"  id="searchInput3" >
-                                <option value="1" selected>高中</option>
-                                <option value="2">初中</option>
-                                <option value="3">小学</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group clearfix">
-                        <label for="searchInputK1" class="control-label" style="padding-top: 8px;">一级知识点</label>
-                            <input type="text" class="form-control"    id="searchInputK1" >
-                    </div>
-                    <div class="form-group clearfix">
-                        <label for="searchInputK2" class="control-label"  style="padding-top: 8px;">二级知识点</label>
-                            <input type="text" class="form-control"    id="searchInputK2" >
-                    </div>
-                    <div class="form-group clearfix">
-                        <label for="searchInputK3" class="control-label"  style="padding-top: 8px;">三级知识点</label>
-                            <input type="text" class="form-control"    id="searchInputK3" >
-                    </div>
                 </div>
-            </div>
         </div>
-        <div class="panel panel-primary">
-            <div class="panel-heading clearfix">
-                <span style="display: inline-block;margin-top: 7px;font-weight:bold">查询信息</span>
-            </div>
-            <div class="panel-body">
-                <p><strong>请求地址：</strong><span id="searchOutput1"></span></p>
-                <p><strong>请求参数：</strong><span id="searchOutput2"></span></p>
-                <p><strong>请求时间：</strong><span id="searchOutput3"></span></p>
-                <p><strong>返回结果：</strong><textarea class="form-control" rows="5" id="searchOutput4"></textarea>
-                 </p>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-9">
-        <div class="panel panel-primary">
-            <div class="panel-heading clearfix">
-                <span style="display: inline-block;margin-top: 7px;font-weight:bold">查询</span>
-            </div>
-            <div class="panel-body">
-                <div>
-                    <div style="padding: 10px;border: 1px solid #337ab7;"  >
-                        <div  class="clearfix" >
-                            <div class="input-group" style="width:50%">
-                                <input type="text" class="form-control" placeholder="输入关键字" id="searchInput">
-                                <span class="input-group-btn">
+        <div class="col-xs-9">
+                <div class="panel panel-primary">
+                        <div class="panel-heading clearfix">
+                                <span style="display: inline-block;margin-top: 7px;font-weight:bold">查询</span>
+                        </div>
+                        <div class="panel-body">
+                                <div>
+                                        <div style="padding: 10px;border: 1px solid #337ab7;">
+                                                <div class="clearfix">
+                                                        <div class="input-group" style="width:50%">
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="输入关键字" id="searchInput">
+                                                                <span class="input-group-btn">
                         <button class="btn btn-primary" type="button" onclick="search()">搜索</button>
                       </span>
-                            </div><!-- /input-group -->
-                        </div>
-                        <div style="display:flex;margin-top:20px">
-                            <div style="padding: 10px; width: 100px;font-weight:bold">题型</div><span style="padding: 10px;" class="text-muted">|</span>
-                            <div style="padding:5px 20px;width:50%" id="typeGroup" >
-                                <!--  <div class="label label-default " style="margin-left:10px" id="allType" onclick="updateSubType(this,0)">全部</div>
-                                  <div class="label label-default" style="margin-left:10px" id="type2" onclick="updateSubType(this,1)">填空题</div>
-                                  <div class="label label-default" style="margin-left:10px" id="type3" onclick="updateSubType(this,2)">解答题</div>
-                                  <div class="label label-default" style="margin-left:10px" id="type4" onclick="updateSubType(this,3)">选择题</div>-->
-                                <select class="js-example-basic-multiple" id="typeSelects" multiple="multiple"  style="width:100%">
-                                </select>
-                            </div>
-                        </div>
-                        <div style="display:flex;margin-top:20px">
-                            <div style="padding: 5px; width: 100px;font-weight:bold">得分率</div><span style="padding: 5px;" class="text-muted">|</span>
-                            <div style="padding:5px 20px 5px 30px;display: flex;">
-                                <input type="number" class="form-control" style="height:25px;width:100px" placeholder="大于0" id="scoreInputStart">
-                                <span  style="margin-left:5px;margin-right:5px">至</span>
-                                <input type="number" class="form-control" style="height:25px;width:100px" placeholder="小于100" id="scoreInputEnd">
-                            </div>
-                        </div>
-                        <div style="display:flex;margin-top:20px">
-                            <div style="padding: 5px; width: 100px;font-weight:bold">难度</div><span style="padding: 5px;" class="text-muted">|</span>
-                            <div style="padding:5px 20px" id="levelGroup" >
-                                <div class="label label-default " style="margin-left:10px" id="allLevel"  onclick="updateSubLevel(this,0)">全部</div>
-                                <div class="label label-default" style="margin-left:10px" id="easyLevel" dataVal="1" onclick="updateSubLevel(this,1)">简单题</div>
-                                <div class="label label-default" style="margin-left:10px" id="normalLevel" dataVal="2" onclick="updateSubLevel(this,2)">中等题</div>
-                                <div class="label label-default" style="margin-left:10px" id="hardLevel" dataVal="3" onclick="updateSubLevel(this,3)">难题</div>
-                            </div>
-                        </div>
-                        <div style="display:flex;margin-top:20px">
-                            <div style="padding: 5px; width: 100px;font-weight:bold">试题入库时间</div><span style="padding: 5px;" class="text-muted">|</span>
-                            <div style="padding:5px 20px">
-                                <div class="label label-default " style="margin-left:10px" id="allDate" onclick="updateSubDate(this,0)">不限</div>
-                                <div class="label label-default" style="margin-left:10px" id="date1" onclick="updateSubDate(this,1)">2017</div>
-                                <div class="label label-default" style="margin-left:10px" id="date2" onclick="updateSubDate(this,2)">2016</div>
-                                <div class="label label-default" style="margin-left:10px" id="date3" onclick="updateSubDate(this,3)">2015</div>
-                                <div class="label label-default" style="margin-left:10px" id="showDateBtn" onclick="showDate()">自定义</div>
-                                <div  style="margin-left: 10px;border: 1px solid #e8e8e8;display: none;padding: 3px;" id="dates">
-                                    <input   id="inputData_start" readonly="readonly" placeholder="开始时间" style="cursor: pointer;width:80px" type="text">
-                                    <input   id="inputData_end" readonly="readonly" placeholder="结束时间" style="cursor: pointer;width:80px" type="text">
-                                    <button class="btn btn-primary btn-xs" onclick="qsubmitdate()" id="Qsubmitdate">取消</button>
-                                    <button class="btn btn-primary btn-xs" onclick="updateSubDate2()">确定</button>
+                                                        </div><!-- /input-group -->
+                                                </div>
+                                                <div style="display:flex;margin-top:20px">
+                                                        <div style="padding: 10px; width: 100px;font-weight:bold">题型
+                                                        </div>
+                                                        <span style="padding: 10px;" class="text-muted">|</span>
+                                                        <div style="padding:5px 20px;width:50%" id="typeGroup">
+                                                                <!--  <div class="label label-default " style="margin-left:10px" id="allType" onclick="updateSubType(this,0)">全部</div>
+                                                                  <div class="label label-default" style="margin-left:10px" id="type2" onclick="updateSubType(this,1)">填空题</div>
+                                                                  <div class="label label-default" style="margin-left:10px" id="type3" onclick="updateSubType(this,2)">解答题</div>
+                                                                  <div class="label label-default" style="margin-left:10px" id="type4" onclick="updateSubType(this,3)">选择题</div>-->
+                                                                <select class="js-example-basic-multiple"
+                                                                        id="typeSelects" multiple="multiple"
+                                                                        style="width:100%">
+                                                                </select>
+                                                        </div>
+                                                </div>
+                                                <div style="display:flex;margin-top:20px">
+                                                        <div style="padding: 5px; width: 100px;font-weight:bold">得分率
+                                                        </div>
+                                                        <span style="padding: 5px;" class="text-muted">|</span>
+                                                        <div style="padding:5px 20px 5px 30px;display: flex;">
+                                                                <input type="number" class="form-control"
+                                                                       style="height:25px;width:100px" placeholder="大于0"
+                                                                       id="scoreInputStart">
+                                                                <span style="margin-left:5px;margin-right:5px">至</span>
+                                                                <input type="number" class="form-control"
+                                                                       style="height:25px;width:100px"
+                                                                       placeholder="小于100" id="scoreInputEnd">
+                                                        </div>
+                                                </div>
+                                                <div style="display:flex;margin-top:20px">
+                                                        <div style="padding: 5px; width: 100px;font-weight:bold">难度
+                                                        </div>
+                                                        <span style="padding: 5px;" class="text-muted">|</span>
+                                                        <div style="padding:5px 20px" id="levelGroup">
+                                                                <div class="label label-default "
+                                                                     style="margin-left:10px" id="allLevel"
+                                                                     onclick="updateSubLevel(this,0)">全部
+                                                                </div>
+                                                                <div class="label label-default"
+                                                                     style="margin-left:10px" id="easyLevel" dataVal="1"
+                                                                     onclick="updateSubLevel(this,1)">简单题
+                                                                </div>
+                                                                <div class="label label-default"
+                                                                     style="margin-left:10px" id="normalLevel"
+                                                                     dataVal="2" onclick="updateSubLevel(this,2)">中等题
+                                                                </div>
+                                                                <div class="label label-default"
+                                                                     style="margin-left:10px" id="hardLevel" dataVal="3"
+                                                                     onclick="updateSubLevel(this,3)">难题
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <div style="display:flex;margin-top:20px">
+                                                        <div style="padding: 5px; width: 100px;font-weight:bold">
+                                                                试题入库时间
+                                                        </div>
+                                                        <span style="padding: 5px;" class="text-muted">|</span>
+                                                        <div style="padding:5px 20px">
+                                                                <div class="label label-default "
+                                                                     style="margin-left:10px" id="allDate"
+                                                                     onclick="updateSubDate(this,0)">不限
+                                                                </div>
+                                                                <div class="label label-default"
+                                                                     style="margin-left:10px" id="date1"
+                                                                     onclick="updateSubDate(this,1)">2017
+                                                                </div>
+                                                                <div class="label label-default"
+                                                                     style="margin-left:10px" id="date2"
+                                                                     onclick="updateSubDate(this,2)">2016
+                                                                </div>
+                                                                <div class="label label-default"
+                                                                     style="margin-left:10px" id="date3"
+                                                                     onclick="updateSubDate(this,3)">2015
+                                                                </div>
+                                                                <div class="label label-default"
+                                                                     style="margin-left:10px" id="showDateBtn"
+                                                                     onclick="showDate()">自定义
+                                                                </div>
+                                                                <div style="margin-left: 10px;border: 1px solid #e8e8e8;display: none;padding: 3px;"
+                                                                     id="dates">
+                                                                        <input id="inputData_start" readonly="readonly"
+                                                                               placeholder="开始时间"
+                                                                               style="cursor: pointer;width:80px"
+                                                                               type="text">
+                                                                        <input id="inputData_end" readonly="readonly"
+                                                                               placeholder="结束时间"
+                                                                               style="cursor: pointer;width:80px"
+                                                                               type="text">
+                                                                        <button class="btn btn-primary btn-xs"
+                                                                                onclick="qsubmitdate()"
+                                                                                id="Qsubmitdate">取消
+                                                                        </button>
+                                                                        <button class="btn btn-primary btn-xs"
+                                                                                onclick="updateSubDate2()">确定
+                                                                        </button>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="hidden"
+                                             style="padding: 10px 0;margin-top: 10px;border: 1px solid #e8e8e8;">
+                                                <div class="label label-default" style="margin-left:10px"
+                                                     onclick="specialType(this,0)">只看本校
+                                                </div>
+                                                <div class="label label-default" style="margin-left:10px"
+                                                     onclick="specialType(this,0)">高考真题
+                                                </div>
+                                                <div class="label label-default" style="margin-left:10px"
+                                                     onclick="specialType(this,0)">高错题
+                                                </div>
+                                                <div class="label label-default" style="margin-left:10px"
+                                                     onclick="specialType(this,0)">不显示我收藏的题目
+                                                </div>
+                                                <div class="label label-default" style="margin-left:10px"
+                                                     onclick="specialType(this,0)">不显示一个月内使用过的题目
+                                                </div>
+                                        </div>
+                                        <div class="hidden"
+                                             style="padding: 10px;margin-top: 10px;border: 1px solid #e8e8e8;">
+                                                <span id="sort0" class="text-primary" onclick="sort(0,this)"
+                                                      style="cursor:pointer">默认排序</span><span class="text-muted"
+                                                                                              style="margin: 0 10px;">|</span>
+                                                <span id="sort1" onclick="sort(1,this)" style="cursor:pointer">时间排序<span
+                                                        class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span
+                                                class="text-muted" style="margin: 0 10px;">|</span>
+                                                <span id="sort2" onclick="sort(2,this)" style="cursor:pointer">组卷次数<span
+                                                        class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span
+                                                class="text-muted" style="margin: 0 10px;">|</span>
+                                                <span id="sort3" onclick="sort(3,this)" style="cursor:pointer">难度排序<span
+                                                        class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span
+                                                class="text-muted" style="margin: 0 10px;">|</span>
+                                                <div class="label label-primary pull-right"
+                                                     style=" margin-left:10px;padding:5px;">
+                                                        将本页全部加入
+                                                </div>
+                                                <div class="pull-right" style="padding:5px;margin-top: -5px;">
+                                                        <span class="glyphicon glyphicon-menu-left"></span>
+                                                        <span style="margin:0 10px">2/20</span>
+                                                        <span class="glyphicon glyphicon-menu-right"></span>
+                                                </div>
+                                        </div>
                                 </div>
-                            </div>
+                                <div id="results">
+                                        <p style="text-align: center;margin-top: 20px;">请查询数据</p>
+                                        <div class="hidden" style="margin-top:20px">
+                                                <div style="background-color: #d9edf7">
+                                                        <div style="border-bottom:1px dashed #bbb;padding: 10px;">
+                                                                <div class="label label-default laebl1"
+                                                                     style="margin-left:10px">正弦
+                                                                </div>
+                                                                <div class="label label-default laebl1"
+                                                                     style="margin-left:10px">立体几何
+                                                                </div>
+                                                                <div class="label label-default laebl1"
+                                                                     style="margin-left:10px">立体几何文案
+                                                                </div>
+                                                        </div>
+                                                        <div style="padding:10px">
+                                                                3.过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经过区域
+                                                                内的整点（即横纵坐标为整数的点）时直线的方程过点A的一束光线，射到 轴被反射后经过区域
+                                                                ，求反射光线所光线所在直线经过区域 内的整点.的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经。到
+                                                                轴被反射后经过.
+                                                        </div>
+                                                </div>
+                                                <div style="background-color:#eaf2f7;padding:10px;display:flex">
+                                                        <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                                                                <span class="text-muted">题型：</span>
+                                                                <span>填空题</span>
+                                                        </div>
+                                                        <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                                                                <span class="text-muted">共使用：</span>
+                                                                <span>3次</span>
+                                                        </div>
+                                                        <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                                                                <span class="text-muted">所有学校平均得分率：</span>
+                                                                <span>78.3%</span>
+                                                        </div>
+                                                        <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                                                                <span class="text-muted">试卷名称：</span>
+                                                                <span><2017随堂同步导学></span>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="hidden" style="margin-top:20px">
+                                                <div style="background-color: #d9edf7">
+                                                        <div style="border-bottom:1px dashed #bbb;padding: 10px;">
+                                                                <div class="label label-default laebl1"
+                                                                     style="margin-left:10px">正弦
+                                                                </div>
+                                                                <div class="label label-default laebl1"
+                                                                     style="margin-left:10px">立体几何
+                                                                </div>
+                                                                <div class="label label-default laebl1"
+                                                                     style="margin-left:10px">立体几何文案
+                                                                </div>
+                                                        </div>
+                                                        <div style="padding:10px">
+                                                                3.过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经过区域
+                                                                内的整点（即横纵坐标为整数的点）时直线的方程过点A的一束光线，射到 轴被反射后经过区域
+                                                                ，求反射光线所光线所在直线经过区域 内的整点.的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经。到
+                                                                轴被反射后经过.
+                                                        </div>
+                                                </div>
+                                                <div style="background-color:#eaf2f7;padding:10px;display:flex">
+                                                        <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                                                                <span class="text-muted">题型：</span>
+                                                                <span>填空题</span>
+                                                        </div>
+                                                        <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                                                                <span class="text-muted">共使用：</span>
+                                                                <span>3次</span>
+                                                        </div>
+                                                        <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                                                                <span class="text-muted">所有学校平均得分率：</span>
+                                                                <span>78.3%</span>
+                                                        </div>
+                                                        <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
+                                                                <span class="text-muted">试卷名称：</span>
+                                                                <span><2017随堂同步导学></span>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <p class="Nosearch" style="display: none;text-align: center;margin-top: 20px;"></p>
+                                <div class="Page-wap text-center clearfix">
+                                        <div class="pagination-wap text-center" style="display: inline-block;">
+                                                <span class="totalNum pull-left"
+                                                      style="margin: 20px 10px 0 0;font-weight: bold;"></span>
+                                                <div id="Pagination" class="pagination"></div>
+                                        </div>
+                                </div>
                         </div>
-                    </div>
-                    <div class="hidden" style="padding: 10px 0;margin-top: 10px;border: 1px solid #e8e8e8;">
-                        <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">只看本校</div>
-                        <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">高考真题</div>
-                        <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">高错题</div>
-                        <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">不显示我收藏的题目</div>
-                        <div class="label label-default" style="margin-left:10px" onclick="specialType(this,0)">不显示一个月内使用过的题目</div>
-                    </div>
-                    <div class="hidden" style="padding: 10px;margin-top: 10px;border: 1px solid #e8e8e8;">
-                        <span id="sort0" class="text-primary" onclick="sort(0,this)" style="cursor:pointer">默认排序</span><span class="text-muted" style="margin: 0 10px;">|</span>
-                        <span id="sort1" onclick="sort(1,this)" style="cursor:pointer">时间排序<span class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span class="text-muted" style="margin: 0 10px;">|</span>
-                        <span id="sort2" onclick="sort(2,this)" style="cursor:pointer">组卷次数<span class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span class="text-muted" style="margin: 0 10px;">|</span>
-                        <span id="sort3" onclick="sort(3,this)" style="cursor:pointer">难度排序<span  class="glyphicon glyphicon-sort " style="color:#b5b5b5"></span></span><span class="text-muted" style="margin: 0 10px;">|</span>
-                        <div class="label label-primary pull-right" style=" margin-left:10px;padding:5px;">
-                            将本页全部加入
-                        </div>
-                        <div class="pull-right" style="padding:5px;margin-top: -5px;">
-                            <span class="glyphicon glyphicon-menu-left"></span>
-                            <span style="margin:0 10px">2/20</span>
-                            <span class="glyphicon glyphicon-menu-right"></span>
-                        </div>
-                    </div>
                 </div>
-                <div id="results">
-                    <p   style="text-align: center;margin-top: 20px;">请查询数据</p>
-                    <div class="hidden" style="margin-top:20px">
-                        <div style="background-color: #d9edf7">
-                            <div style="border-bottom:1px dashed #bbb;padding: 10px;">
-                                <div class="label label-default laebl1" style="margin-left:10px">正弦</div>
-                                <div class="label label-default laebl1" style="margin-left:10px">立体几何</div>
-                                <div class="label label-default laebl1" style="margin-left:10px">立体几何文案</div>
-                            </div>
-                            <div style="padding:10px">
-                                3.过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经过区域 内的整点（即横纵坐标为整数的点）时直线的方程过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所光线所在直线经过区域 内的整点.的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经。到 轴被反射后经过.
-                            </div>
-                        </div>
-                        <div style="background-color:#eaf2f7;padding:10px;display:flex">
-                            <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
-                                <span class="text-muted">题型：</span>
-                                <span>填空题</span>
-                            </div>
-                            <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
-                                <span class="text-muted">共使用：</span>
-                                <span>3次</span>
-                            </div>
-                            <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
-                                <span class="text-muted">所有学校平均得分率：</span>
-                                <span>78.3%</span>
-                            </div>
-                            <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
-                                <span class="text-muted">试卷名称：</span>
-                                <span><2017随堂同步导学></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hidden" style="margin-top:20px">
-                        <div style="background-color: #d9edf7">
-                            <div style="border-bottom:1px dashed #bbb;padding: 10px;">
-                                <div class="label label-default laebl1" style="margin-left:10px">正弦</div>
-                                <div class="label label-default laebl1" style="margin-left:10px">立体几何</div>
-                                <div class="label label-default laebl1" style="margin-left:10px">立体几何文案</div>
-                            </div>
-                            <div style="padding:10px">
-                                3.过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经过区域 内的整点（即横纵坐标为整数的点）时直线的方程过点A的一束光线，射到 轴被反射后经过区域 ，求反射光线所光线所在直线经过区域 内的整点.的一束光线，射到 轴被反射后经过区域 ，求反射光线所在直线经。到 轴被反射后经过.
-                            </div>
-                        </div>
-                        <div style="background-color:#eaf2f7;padding:10px;display:flex">
-                            <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
-                                <span class="text-muted">题型：</span>
-                                <span>填空题</span>
-                            </div>
-                            <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
-                                <span class="text-muted">共使用：</span>
-                                <span>3次</span>
-                            </div>
-                            <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
-                                <span class="text-muted">所有学校平均得分率：</span>
-                                <span>78.3%</span>
-                            </div>
-                            <div style="border-right: 1px dashed #b9b9b9;padding: 0 10px;">
-                                <span class="text-muted">试卷名称：</span>
-                                <span><2017随堂同步导学></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="Nosearch" style="display: none;text-align: center;margin-top: 20px;"></p>
-                <div class="Page-wap text-center clearfix">
-                    <div class="pagination-wap text-center" style="display: inline-block;">
-                        <span class="totalNum pull-left" style="margin: 20px 10px 0 0;font-weight: bold;"></span>
-                        <div id="Pagination" class="pagination"></div>
-                    </div>
-                </div>
-             </div>
         </div>
-    </div>
+
+        <div class="modal fade" id="knowledgeModal" tabindex="-1" role="dialog" aria-labelledby="knowledgeModalModalLabel">
+                <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="knowledgeModalModalLabel">知识点标签</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" >提交</button>
+                                </div>
+                        </div>
+                </div>
+        </div>
 </div>
 <script>
-    var htmlURL = 'http://172.17.35.127/';
-    var url  ="http://172.17.35.138:8080/searchAction/search.json";
-    var url1  ="http://172.17.35.138:8091/searchAction/search.json";
-    var url2  ="http://172.17.35.135:8080/searchAction/search.json?condition=%7B%22content%22:%7B%22searchWord%22:%22%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%22,%22startLastUpdateTime%22:%2220160918%2012:35:23%22,%22form%22:%222%22,%22size%22:%2220%22%7D%7D&sortFields=%7B%22content%22:[%7B%22lastUpdateTime%22:%22desc%22%7D]%7D";
+    var htmlURL = 'http://172.17.35.126:8090/';
+    var url = "http://172.17.35.138:8080/searchAction/search.json";
+    var url1 = "http://172.17.35.138:8091/searchAction/search.json";
+    var url2 = "http://172.17.35.135:8080/searchAction/search.json?condition=%7B%22content%22:%7B%22searchWord%22:%22%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%22,%22startLastUpdateTime%22:%2220160918%2012:35:23%22,%22form%22:%222%22,%22size%22:%2220%22%7D%7D&sortFields=%7B%22content%22:[%7B%22lastUpdateTime%22:%22desc%22%7D]%7D";
 
     var dataJson1 = {
         condition: {
             content: {
-                searchWord:'',
-                exercisesType:'',
+                searchWord: '',
+                exercisesType: '',
                 pageNum: 1,
                 size: 200
             },
@@ -319,78 +449,78 @@
             "fir_k": '', //一级知识点
             "se_k": '', //二级知识点
             "th_k": '', //三级知识点
-            "dif_type":'',//难度
+            "dif_type": '',//难度
             "st_up_time": "",//试题开始时间
             "en_up_time": ""//试题结束时间
         },
     };
 
-    var typeSelectOp=[
-        { key:'选择题',value:1},
-        { key:'填空题',value:2},
-        { key:'解答题',value:3},
-        { key:'计算题',value:4},
-        { key:'综合题',value:5},
-        { key:'多选题',value:6},
-        { key:'判断题',value:7},
-        { key:'操作题',value:8},
-        { key:'推理探究题',value:9},
-        { key:'不定项选择题',value:10},
-        { key:'基础知识',value:11},
-        { key:'语言运用',value:12},
-        { key:'名著阅读',value:13},
-        { key:'综合读写',value:14},
-        { key:'默写题',value:15},
-        { key:'翻译题',value:16},
-        { key:'诗歌鉴赏',value:17},
-        { key:'文言文阅读',value:18},
-        { key:'书写',value:19},
-        { key:'阅读理解',value:20},
-        { key:'完形填空',value:21},
-        { key:'短文改错',value:22},
-        { key:'词汇应用',value:23},
-        { key:'单词造句',value:24},
-        { key:'句型转换',value:25},
-        { key:'补全对话',value:26},
-        { key:'阅读表达',value:27},
-        { key:'改错题',value:28},
-        { key:'听力题',value:29},
-        { key:'补充句子',value:30},
-        { key:'选词填空',value:31},
-        { key:'单词拼写',value:32},
-        { key:'任务型阅读',value:33},
-        { key:'信息匹配',value:34},
-        { key:'完成句子',value:35},
-        { key:'抄写题',value:36},
-        { key:'词汇互译',value:37},
-        { key:'情景交际',value:38},
-        { key:'仿写题，造句',value:39},
-        { key:'连词成序',value:40},
-        { key:'排序题',value:41},
-        { key:'实验探究题',value:42},
-        { key:'单选题',value:43},
-        { key:'辨析题',value:44},
-        { key:'双选题',value:45},
-        { key:'论述题',value:46},
-        { key:'材料分析题',value:47},
-        { key:'作文题',value:48},
-        { key:'文字运用题',value:49},
-        { key:'注音释义',value:50},
-        { key:'基础知识题',value:51},
-        { key:'语言表达',value:52},
-        { key:'短文填空',value:53},
-        { key:'首字母填空',value:54},
-        { key:'作图题',value:55},
-        { key:'证明题',value:56},
-        { key:'论证题',value:57},
-        { key:'推断题',value:58},
-        { key:'选择题组',value:59},
-        { key:'绘图题',value:60},
-        ];
+    var typeSelectOp = [
+        {key: '选择题', value: 1},
+        {key: '填空题', value: 2},
+        {key: '解答题', value: 3},
+        {key: '计算题', value: 4},
+        {key: '综合题', value: 5},
+        {key: '多选题', value: 6},
+        {key: '判断题', value: 7},
+        {key: '操作题', value: 8},
+        {key: '推理探究题', value: 9},
+        {key: '不定项选择题', value: 10},
+        {key: '基础知识', value: 11},
+        {key: '语言运用', value: 12},
+        {key: '名著阅读', value: 13},
+        {key: '综合读写', value: 14},
+        {key: '默写题', value: 15},
+        {key: '翻译题', value: 16},
+        {key: '诗歌鉴赏', value: 17},
+        {key: '文言文阅读', value: 18},
+        {key: '书写', value: 19},
+        {key: '阅读理解', value: 20},
+        {key: '完形填空', value: 21},
+        {key: '短文改错', value: 22},
+        {key: '词汇应用', value: 23},
+        {key: '单词造句', value: 24},
+        {key: '句型转换', value: 25},
+        {key: '补全对话', value: 26},
+        {key: '阅读表达', value: 27},
+        {key: '改错题', value: 28},
+        {key: '听力题', value: 29},
+        {key: '补充句子', value: 30},
+        {key: '选词填空', value: 31},
+        {key: '单词拼写', value: 32},
+        {key: '任务型阅读', value: 33},
+        {key: '信息匹配', value: 34},
+        {key: '完成句子', value: 35},
+        {key: '抄写题', value: 36},
+        {key: '词汇互译', value: 37},
+        {key: '情景交际', value: 38},
+        {key: '仿写题，造句', value: 39},
+        {key: '连词成序', value: 40},
+        {key: '排序题', value: 41},
+        {key: '实验探究题', value: 42},
+        {key: '单选题', value: 43},
+        {key: '辨析题', value: 44},
+        {key: '双选题', value: 45},
+        {key: '论述题', value: 46},
+        {key: '材料分析题', value: 47},
+        {key: '作文题', value: 48},
+        {key: '文字运用题', value: 49},
+        {key: '注音释义', value: 50},
+        {key: '基础知识题', value: 51},
+        {key: '语言表达', value: 52},
+        {key: '短文填空', value: 53},
+        {key: '首字母填空', value: 54},
+        {key: '作图题', value: 55},
+        {key: '证明题', value: 56},
+        {key: '论证题', value: 57},
+        {key: '推断题', value: 58},
+        {key: '选择题组', value: 59},
+        {key: '绘图题', value: 60},
+    ];
 
-    var html =''
-    typeSelectOp.map(function(item){
-        html+='<option value="'+item.value+'">'+item.key+'</option>';
+    var html = ''
+    typeSelectOp.map(function (item) {
+        html += '<option value="' + item.value + '">' + item.key + '</option>';
     })
     $("#typeSelects").html(html);
     $("#typeSelects").select2({
@@ -399,118 +529,119 @@
     });
 
     $("#my-checkbox").bootstrapSwitch();
-    $("#my-checkbox").on('switchChange.bootstrapSwitch', function(event, state) {
+    $("#my-checkbox").on('switchChange.bootstrapSwitch', function (event, state) {
         console.log(this); // DOM element
         console.log(event); // jQuery event
         console.log(state); // true | false
     });
 
-    var initFlag=true;
-    function search(){
-        dataJson.condition.fir_k=$("#searchInputK1").val();
-        dataJson.condition.se_k=$("#searchInputK2").val();
-        dataJson.condition.th_k=$("#searchInputK3").val();
-        dataJson.condition.s_word=$("#searchInput").val();
-        dataJson.condition.st_sr =  $("#scoreInputStart").val()/100;
-        dataJson.condition.en_sr = $("#scoreInputEnd").val()/100;
+    var initFlag = true;
+    function search() {
+        dataJson.condition.fir_k = $("#searchInputK1").val();
+        dataJson.condition.se_k = $("#searchInputK2").val();
+        dataJson.condition.th_k = $("#searchInputK3").val();
+        dataJson.condition.s_word = $("#searchInput").val();
+        dataJson.condition.st_sr = $("#scoreInputStart").val() / 100;
+        dataJson.condition.en_sr = $("#scoreInputEnd").val() / 100;
         var typeSelectstr = $("#typeSelects").val();
-        var str ='';
-        if(typeSelectstr!=null){
-            typeSelectstr.map(function(item,index){
-                if(index+1==typeSelectstr.length){
-                    str+=item;
-                }else{
-                    str+=item+",";
+        var str = '';
+        if (typeSelectstr != null) {
+            typeSelectstr.map(function (item, index) {
+                if (index + 1 == typeSelectstr.length) {
+                    str += item;
+                } else {
+                    str += item + ",";
                 }
             })
         }
         dataJson.condition.ex_type = str;
         dataJson.condition.count = $("#searchInput1").val();
-        dataJson.condition.subject =$("#searchInput2").val();
-        dataJson.condition.period =$("#searchInput3").val();
-        console.log({dataJson:dataJson});
+        dataJson.condition.subject = $("#searchInput2").val();
+        dataJson.condition.period = $("#searchInput3").val();
+        console.log({dataJson: dataJson});
 
-        var auth =true;
-        var condition={};
-        if(dataJson.condition.count==''){
+        var auth = true;
+        var condition = {};
+        if (dataJson.condition.count == '') {
             alert('请填写查询数量!');
-        }else{
-            condition.count=dataJson.condition.count;
-            if(dataJson.condition.st_sr!=''&&dataJson.condition.en_sr!=''){
-                if(dataJson.condition.st_sr>0&&dataJson.condition.st_sr<1&&dataJson.condition.en_sr>0&&dataJson.condition.en_sr<1&&dataJson.condition.st_sr<dataJson.condition.en_sr){
-                    condition.st_sr=dataJson.condition.st_sr;
-                    condition.en_sr=dataJson.condition.en_sr;
-                }else{
+        } else {
+            condition.count = dataJson.condition.count;
+            if (dataJson.condition.st_sr != '' && dataJson.condition.en_sr != '') {
+                if (dataJson.condition.st_sr > 0 && dataJson.condition.st_sr < 1 && dataJson.condition.en_sr > 0 && dataJson.condition.en_sr < 1 && dataJson.condition.st_sr < dataJson.condition.en_sr) {
+                    condition.st_sr = dataJson.condition.st_sr;
+                    condition.en_sr = dataJson.condition.en_sr;
+                } else {
                     alert('得分率输入错误!');
-                    auth =false;
+                    auth = false;
                 }
             }
-            if(dataJson.condition.s_word!=''){
-                condition.s_word=dataJson.condition.s_word;
+            if (dataJson.condition.s_word != '') {
+                condition.s_word = dataJson.condition.s_word;
             }
-            if(dataJson.condition.ex_type!=''){
-                condition.ex_type=dataJson.condition.ex_type;
+            if (dataJson.condition.ex_type != '') {
+                condition.ex_type = dataJson.condition.ex_type;
             }
-            if(dataJson.condition.subject!=''){
-                condition.subject=dataJson.condition.subject;
-            }else{
+            if (dataJson.condition.subject != '') {
+                condition.subject = dataJson.condition.subject;
+            } else {
                 alert('请填写查询科目!');
-                auth =false;
+                auth = false;
             }
-            if(dataJson.condition.period!=''){
-                condition.period=dataJson.condition.period;
-            }else{
+            if (dataJson.condition.period != '') {
+                condition.period = dataJson.condition.period;
+            } else {
                 alert('请填写查询学段!');
-                auth =false;
+                auth = false;
             }
-            if(dataJson.condition.fir_k!=''){
-                condition.fir_k=dataJson.condition.fir_k;
+            if (dataJson.condition.fir_k != '') {
+                condition.fir_k = dataJson.condition.fir_k;
             }
-            if(dataJson.condition.se_k!=''){
-                condition.se_k=dataJson.condition.se_k;
+            if (dataJson.condition.se_k != '') {
+                condition.se_k = dataJson.condition.se_k;
             }
-            if(dataJson.condition.th_k!=''){
-                condition.th_k=dataJson.condition.th_k;
+            if (dataJson.condition.th_k != '') {
+                condition.th_k = dataJson.condition.th_k;
             }
-            if(dataJson.condition.dif_type!=''){
-                condition.dif_type=dataJson.condition.dif_type;
+            if (dataJson.condition.dif_type != '') {
+                condition.dif_type = dataJson.condition.dif_type;
             }
-            if(dataJson.condition.st_up_time!=''){
-                condition.st_up_time=dataJson.condition.st_up_time;
+            if (dataJson.condition.st_up_time != '') {
+                condition.st_up_time = dataJson.condition.st_up_time;
             }
-            if(dataJson.condition.en_up_time!=''){
-                condition.en_up_time=dataJson.condition.en_up_time;
+            if (dataJson.condition.en_up_time != '') {
+                condition.en_up_time = dataJson.condition.en_up_time;
             }
-            console.log({condition:condition});
-            initFlag=true;
-            if(auth){
-                getDataList(0,condition);
+            condition.scene_id = 's_01';
+            console.log({condition: condition});
+            initFlag = true;
+            if (auth) {
+                getDataList(0, condition);
             }
         }
     }
-    function getDataList(currPage,condition){
-     //   dataJson.condition.content.pageNum=currPage+1;
+    function getDataList(currPage, condition) {
+        //   dataJson.condition.content.pageNum=currPage+1;
         $("#searchOutput1").html(url);
-        $("#searchOutput2").html(JSON.stringify(condition));
+        $("#searchOutput2").val(JSON.stringify(condition));
         var timestampStart = Date.now()
         $.ajax({
-            url:url,
-            type:"get",
-            data:{
-                condition:  JSON.stringify(condition)
+            url: url,
+            type: "get",
+            data: {
+                condition: JSON.stringify(condition)
             },
-            dateType:"json",
-            /*dateType:"jsonp",
-            crossDomain: true,*/
-            success:function(data){
-                var timestampEnd =Date.now()
+            dateType: "json",
+                /*dateType:"jsonp",
+                 crossDomain: true,*/
+            success: function (data) {
+                var timestampEnd = Date.now()
                 console.log(data);
-                $("#searchOutput3").html((timestampEnd-timestampStart)+"毫秒");
+                $("#searchOutput3").html((timestampEnd - timestampStart) + "毫秒");
                 $("#searchOutput4").val(JSON.stringify(data));
                 $("#results").html("");
-                var html='';
-                if(data.pageContent!=undefined&&data.pageContent.indexList!=undefined&&data.pageContent.indexList!=''){
-                    data.pageContent.indexList.map(function(item, index){
+                var html = '';
+                if (data.pageContent != undefined && data.pageContent.indexList != undefined && data.pageContent.indexList != '') {
+                    data.pageContent.indexList.map(function (item, index) {
                         html += '<div style="margin-top:20px">';
                         html += '<div style="background-color: #d9edf7">';
                         html += '<div style="border-bottom:1px dashed #bbb;padding: 10px;">';
@@ -520,9 +651,9 @@
                         html += '</div>';
                         html += '<div style="padding:10px">'
                         var temp = item.ex_url.split('||');
-                        temp.map(function(item1,index1){
-                            if(index1===0)
-                            html += '<iframe  src="'+htmlURL+item1+'"  style="width: 100%;height: 100%;border: 0;" ></iframe>';
+                        temp.map(function (item1, index1) {
+
+                            html += '<iframe  src="' + htmlURL + item1 + '"  style="width: 100%;height: 100%;border: 0;" ></iframe>';
                         });
                         html += '</div></div>';
                         html += '<div style="background-color:#eaf2f7;padding:10px;display:flex">';
@@ -547,22 +678,22 @@
                     })
                 }
                 $("#results").html(html);
-                var count=0;
-               count = data.pageContent!=undefined&&data.pageContent.indexList!=undefined?data.pageContent.indexList.length:0;
-               /* if (initFlag) {
-                    $("#Pagination").pagination(count,{
-                        items_per_page :dataJson.condition.content.size,
-                        num_display_entries:3,
-                        num_edge_entries:3,
-                        callback : getDataList//回调函数
-                    });
-                    initFlag=false;
-                }*/
-                $('.totalNum').html('共'+count+'条');
-                if(count==0){
+                var count = 0;
+                count = data.pageContent != undefined && data.pageContent.indexList != undefined ? data.pageContent.indexList.length : 0;
+                    /* if (initFlag) {
+                     $("#Pagination").pagination(count,{
+                     items_per_page :dataJson.condition.content.size,
+                     num_display_entries:3,
+                     num_edge_entries:3,
+                     callback : getDataList//回调函数
+                     });
+                     initFlag=false;
+                     }*/
+                $('.totalNum').html('共' + count + '条');
+                if (count == 0) {
                     $('#results').hide();
                     $('.Nosearch').show().html('查无结果!');
-                }else{
+                } else {
                     $('#results').show();
                     $('.Nosearch').html('').hide();
                 }
@@ -578,210 +709,210 @@
     $("#allLevel").trigger("click");
     $("#allDate").trigger("click");
 
-    var flag2=0;
-    function showDate(){
+    var flag2 = 0;
+    function showDate() {
         $("#allDate").addClass("label-warning");
         $("#date1").addClass("label-warning");
         $("#date2").addClass("label-warning");
         $("#date3").addClass("label-warning");
-        if(flag2==0){
-            flag2=1;
-            $("#showDateBtn").css("display","none");
-            $("#dates").css("display","inline-block");
-        }else{
-            flag2=0;
-            $("#showDateBtn").css("display","inline-block");
-            $("#dates").css("display","none");
+        if (flag2 == 0) {
+            flag2 = 1;
+            $("#showDateBtn").css("display", "none");
+            $("#dates").css("display", "inline-block");
+        } else {
+            flag2 = 0;
+            $("#showDateBtn").css("display", "inline-block");
+            $("#dates").css("display", "none");
         }
     }
 
-    function qsubmitdate(){
+    function qsubmitdate() {
         $("#allDate").removeClass("label-warning");
         $("#date1").removeClass("label-warning");
         $("#date2").removeClass("label-warning");
         $("#date3").removeClass("label-warning");
-        if(flag2==0){
-            flag2=1;
-            $("#showDateBtn").css("display","none");
-            $("#dates").css("display","inline-block");
-        }else{
-            flag2=0;
-            $("#showDateBtn").css("display","inline-block");
-            $("#dates").css("display","none");
+        if (flag2 == 0) {
+            flag2 = 1;
+            $("#showDateBtn").css("display", "none");
+            $("#dates").css("display", "inline-block");
+        } else {
+            flag2 = 0;
+            $("#showDateBtn").css("display", "inline-block");
+            $("#dates").css("display", "none");
         }
     }
 
     //题型
-    function updateSubType(obj,type){
-        if(type==0){
-            if(!$("#allType").hasClass("label-info")){
+    function updateSubType(obj, type) {
+        if (type == 0) {
+            if (!$("#allType").hasClass("label-info")) {
                 $("#allType").addClass("label-info");
-                if(!$("#type2").hasClass("label-info")){
+                if (!$("#type2").hasClass("label-info")) {
                     $("#type2").addClass("label-info");
                 }
-                if(!$("#type3").hasClass("label-info")){
+                if (!$("#type3").hasClass("label-info")) {
                     $("#type3").addClass("label-info");
                 }
-                if(!$("#type4").hasClass("label-info")){
+                if (!$("#type4").hasClass("label-info")) {
                     $("#type4").addClass("label-info");
                 }
             }
 
-        }else{
+        } else {
             $("#allType").removeClass("label-info");
             $("#type2").removeClass("label-info");
             $("#type3").removeClass("label-info");
             $("#type4").removeClass("label-info");
             $(obj).addClass("label-info");
         }
-        if(type==0){
-            dataJson.condition.ex_type='';
+        if (type == 0) {
+            dataJson.condition.ex_type = '';
         }
-        if(type==1){//填空
-            dataJson.condition.ex_type=2;
+        if (type == 1) {//填空
+            dataJson.condition.ex_type = 2;
         }
-        if(type==2){//解答
-            dataJson.condition.ex_type=3;
+        if (type == 2) {//解答
+            dataJson.condition.ex_type = 3;
         }
-        if(type==3){//选择
-            dataJson.condition.ex_type=1;
+        if (type == 3) {//选择
+            dataJson.condition.ex_type = 1;
         }
     }
 
-    function updateSubLevel(obj,type) {
-        if(type==0){
-            if($("#allLevel").hasClass("label-info")){
+    function updateSubLevel(obj, type) {
+        if (type == 0) {
+            if ($("#allLevel").hasClass("label-info")) {
                 $("#allLevel").removeClass("label-info");
                 $("#easyLevel").removeClass("label-info");
                 $("#normalLevel").removeClass("label-info");
                 $("#hardLevel").removeClass("label-info");
-            }else{
+            } else {
                 $("#allLevel").addClass("label-info");
-                if(!$("#easyLevel").hasClass("label-info")){
+                if (!$("#easyLevel").hasClass("label-info")) {
                     $("#easyLevel").addClass("label-info");
                 }
-                if(!$("#normalLevel").hasClass("label-info")){
+                if (!$("#normalLevel").hasClass("label-info")) {
                     $("#normalLevel").addClass("label-info");
                 }
-                if(!$("#hardLevel").hasClass("label-info")){
+                if (!$("#hardLevel").hasClass("label-info")) {
                     $("#hardLevel").addClass("label-info");
                 }
             }
-        }else{
-            if($(obj).hasClass("label-info")){
+        } else {
+            if ($(obj).hasClass("label-info")) {
                 $(obj).removeClass("label-info");
-            }else{
+            } else {
                 $(obj).addClass("label-info");
             }
-            if($("#allLevel").hasClass("label-info")){
+            if ($("#allLevel").hasClass("label-info")) {
                 $("#allLevel").removeClass("label-info");
             }
         }
-        dataJson.condition.dif_type='';
-        if(type!=0){
-            $("#levelGroup div[class='label label-default label-info']").map(function(index,item){
-                dataJson.condition.dif_type +=item.attributes['dataval'].value+',';
+        dataJson.condition.dif_type = '';
+        if (type != 0) {
+            $("#levelGroup div[class='label label-default label-info']").map(function (index, item) {
+                dataJson.condition.dif_type += item.attributes['dataval'].value + ',';
             })
-            dataJson.condition.dif_type = dataJson.condition.dif_type.substring(0,dataJson.condition.dif_type.length-1);
+            dataJson.condition.dif_type = dataJson.condition.dif_type.substring(0, dataJson.condition.dif_type.length - 1);
         }
     }
 
-    function updateSubDate(obj,type) {
-        if($("#showDateBtn").css("display")=="none"){
-            flag2=0;
-            $("#showDateBtn").css("display","inline-block");
-            $("#dates").css("display","none");
+    function updateSubDate(obj, type) {
+        if ($("#showDateBtn").css("display") == "none") {
+            flag2 = 0;
+            $("#showDateBtn").css("display", "inline-block");
+            $("#dates").css("display", "none");
             $("#allDate").removeClass("label-warning");
             $("#date1").removeClass("label-warning");
             $("#date2").removeClass("label-warning");
             $("#date3").removeClass("label-warning");
         }
-        if(type==0){
-            if(!$("#allDate").hasClass("label-info")){
+        if (type == 0) {
+            if (!$("#allDate").hasClass("label-info")) {
                 $("#allDate").addClass("label-info");
-                if(!$("#date1").hasClass("label-info")){
+                if (!$("#date1").hasClass("label-info")) {
                     $("#date1").addClass("label-info");
                 }
-                if(!$("#date2").hasClass("label-info")){
+                if (!$("#date2").hasClass("label-info")) {
                     $("#date2").addClass("label-info");
                 }
-                if(!$("#date3").hasClass("label-info")){
+                if (!$("#date3").hasClass("label-info")) {
                     $("#date3").addClass("label-info");
                 }
             }
-        }else{
+        } else {
             $("#allDate").removeClass("label-info");
             $("#date1").removeClass("label-info");
             $("#date2").removeClass("label-info");
             $("#date3").removeClass("label-info");
             $(obj).addClass("label-info");
         }
-        if(type==0){
-            dataJson.condition.st_up_time="";
-            dataJson.condition.en_up_time="";
+        if (type == 0) {
+            dataJson.condition.st_up_time = "";
+            dataJson.condition.en_up_time = "";
         }
-        if(type==1){//2017
-            dataJson.condition.st_up_time="20170101 00-00-00";
-            dataJson.condition.en_up_time="20171231 24-00-00";
+        if (type == 1) {//2017
+            dataJson.condition.st_up_time = "20170101 00-00-00";
+            dataJson.condition.en_up_time = "20171231 24-00-00";
         }
-        if(type==2){//2016
-            dataJson.condition.st_up_time="20160101 00-00-00";
-            dataJson.condition.en_up_time="20161231 24-00-00";
+        if (type == 2) {//2016
+            dataJson.condition.st_up_time = "20160101 00-00-00";
+            dataJson.condition.en_up_time = "20161231 24-00-00";
         }
-        if(type==3){//2015
-            dataJson.condition.st_up_time="20150101 00-00-00";
-            dataJson.condition.en_up_time="20151231 24-00-00";
+        if (type == 3) {//2015
+            dataJson.condition.st_up_time = "20150101 00-00-00";
+            dataJson.condition.en_up_time = "20151231 24-00-00";
         }
     }
 
-    function specialType(obj,type) {
-        if($(obj).hasClass("label-info")){
+    function specialType(obj, type) {
+        if ($(obj).hasClass("label-info")) {
             $(obj).removeClass("label-info");
-        }else{
+        } else {
             $(obj).addClass("label-info");
         }
     }
 
-    function updateSubDate2(){
+    function updateSubDate2() {
         var inputData_start = $("#inputData_start").val();
         var inputData_end = $("#inputData_end").val();
-        dataJson.condition.st_up_time=inputData_start.replace(/-/g,'')+" 00:00:00";
-        dataJson.condition.en_up_time=inputData_end.replace(/-/g,'')+" 24:00:00";
+        dataJson.condition.st_up_time = inputData_start.replace(/-/g, '') + " 00:00:00";
+        dataJson.condition.en_up_time = inputData_end.replace(/-/g, '') + " 24:00:00";
     }
 
     var flag3 = 0;
-    function sort(type,obj){
-        if(type!=0){
-            if(flag3!=0){
-                if(type==flag3){
-                    if($("#sort"+type).children().first().hasClass("half_left")){
-                        $("#sort"+type).children().first().addClass("half_right");
-                        $("#sort"+type).children().first().removeClass("half_left");
-                    }else{
-                        $("#sort"+type).children().first().addClass("half_left");
-                        $("#sort"+type).children().first().removeClass("half_right");
+    function sort(type, obj) {
+        if (type != 0) {
+            if (flag3 != 0) {
+                if (type == flag3) {
+                    if ($("#sort" + type).children().first().hasClass("half_left")) {
+                        $("#sort" + type).children().first().addClass("half_right");
+                        $("#sort" + type).children().first().removeClass("half_left");
+                    } else {
+                        $("#sort" + type).children().first().addClass("half_left");
+                        $("#sort" + type).children().first().removeClass("half_right");
                     }
-                }else{
-                    $("#sort"+flag3).removeClass("text-primary");
-                    $("#sort"+flag3).children().first().removeClass("half_right");
-                    $("#sort"+flag3).children().first().removeClass("half_left");
-                    $("#sort"+type).addClass("text-primary");
-                    $("#sort"+type).children().first().addClass("half_left");
+                } else {
+                    $("#sort" + flag3).removeClass("text-primary");
+                    $("#sort" + flag3).children().first().removeClass("half_right");
+                    $("#sort" + flag3).children().first().removeClass("half_left");
+                    $("#sort" + type).addClass("text-primary");
+                    $("#sort" + type).children().first().addClass("half_left");
                 }
-            }else{
-                $("#sort"+flag3).removeClass("text-primary");
-                $("#sort"+flag3).children().first().removeClass("half_right");
-                $("#sort"+flag3).children().first().removeClass("half_left");
-                $("#sort"+type).addClass("text-primary");
-                $("#sort"+type).children().first().addClass("half_left");
+            } else {
+                $("#sort" + flag3).removeClass("text-primary");
+                $("#sort" + flag3).children().first().removeClass("half_right");
+                $("#sort" + flag3).children().first().removeClass("half_left");
+                $("#sort" + type).addClass("text-primary");
+                $("#sort" + type).children().first().addClass("half_left");
             }
-        }else{
-            $("#sort"+flag3).removeClass("text-primary");
-            $("#sort"+flag3).children().first().removeClass("half_right");
-            $("#sort"+flag3).children().first().removeClass("half_left");
-            $("#sort"+type).addClass("text-primary");
+        } else {
+            $("#sort" + flag3).removeClass("text-primary");
+            $("#sort" + flag3).children().first().removeClass("half_right");
+            $("#sort" + flag3).children().first().removeClass("half_left");
+            $("#sort" + type).addClass("text-primary");
         }
-        flag3=type;
+        flag3 = type;
     }
 
 </script>

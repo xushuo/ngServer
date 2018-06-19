@@ -5,16 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ws = require('ws');
+var fs = require('fs');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
+// 定义EJS模板引擎和模板文件位置，也可以使用jade或其他模型引
+/*app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
+app.engine('html', ejs.renderFile);*/
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -69,18 +69,26 @@ app.use('/api/products', function(req, res){
     console.log(req.params.id);
     res.send(stocks);
 });
+app.use('/static/mock/:name', function(req, res){
+    console.log(req.params.name)
+    res.send(JSON.parse(fs.readFileSync('./mock/'+req.params.name)));
+});
 
+/*
 var wsServer = new Server({
     port:8085
 });
 wsServer.on("connection",websocket =>{
     websocket.send('这个是服务器主动推送的')
 })
+*/
 
 
+app.use('/webapp/*', function(req, res){
+    res.render('index');
+});
 
 app.use('/', index);
-app.use('/users', users);
 // catch 404 and forward to error handler
 app.use(function(req, res, next){
     var err = new Error('Not Found');

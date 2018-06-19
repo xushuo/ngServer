@@ -1,82 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+              crossorigin="anonymous">
 </head>
 <body>
 
 <div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">测试文件上传</h3>
-    </div>
-    <div class="panel-body">
-        <form id="form" enctype="multipart/form-data">
-            <input type="text" id="name" name="name">
-            <input type="file" id="fileId" name="file"/>
-        </form>
-        <button type="button" onclick="submit()">提交</button>
-    </div>
+        <div class="panel-heading">
+                <h3 class="panel-title">测试文件上传</h3>
+        </div>
+        <div class="panel-body">
+                <form id="form" enctype="multipart/form-data">
+                        <input type="text" id="name" name="name">
+                        <input type="file" id="fileId" name="file"/>
+                </form>
+                <button type="button" onclick="submit()">提交</button>
+        </div>
 </div>
 
 <div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">测试json</h3>
-    </div>
-    <div class="panel-body">
-        <button class="btn btn-info" onclick="appendHTML()">添加json(HTML格式)</button>
-         <div id="dataJson"></div>
-    </div>
+        <div class="panel-heading">
+                <h3 class="panel-title">测试json</h3>
+        </div>
+        <div class="panel-body">
+                <button class="btn btn-info" onclick="appendHTML()">添加json(HTML格式)</button>
+                <div id="dataJson"></div>
+        </div>
 </div>
 
 <div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">测试doc</h3>
-    </div>
-    <div class="panel-body">
-        <button class="btn btn-info" onclick="docCombine()">合并word</button>
-         <div id="doc"></div>
-    </div>
+        <div class="panel-heading">
+                <h3 class="panel-title">测试doc</h3>
+        </div>
+        <div class="panel-body">
+                <button class="btn btn-info" onclick="docCombine()">合并word</button>
+                <div id="doc"></div>
+        </div>
+</div>
+
+<div class="panel panel-info">
+        <div class="panel-heading">
+                <h3 class="panel-title">测试gzip传输</h3>
+        </div>
+        <div class="panel-body">
+                <button class="btn btn-info" onclick="doHTTP()">发送HTTP请求</button>
+                <div id="doc"></div>
+        </div>
 </div>
 
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="./js/pako.min.js"></script>
+
 <script>
-    function submit(){
+    function doHTTP() {
+        var params = encodeURIComponent(JSON.stringify({
+            title: 'abc',
+            content: '123456789'
+        }));
+        var compressBeginLen = params.length;
+        if (compressBeginLen > 1) {
+            //对 JSON 字符串进行压缩
+            // pako.gzip(params) 默认返回一个 Uint8Array 对象,如果此时使用 Ajax 进行请求,参数会以数组的形式进行发送
+            // 为了解决该问题,添加 {to: "string"} 参数,返回一个二进制的字符串
+            params = pako.gzip(params, {to: "string"});
+        }
+        var b64Data = 'H4sIAAAAAAAAAJ3UMQ7CMAwF0KugP2ewEzdpcxXUAbWAOiHUMqCqdyeVQAobfGXIYL8hP5ZXnEdkeNEk6vUgXTbLonC4zMjHFY/5Wm511ekdTsOCLKVp2rlIKOA2jTuBot/cr7BhobEwsbAloY8kDGyqoQ5H/oHsdwQ21cCmaspCz0L2jcYOgLHhNGw4TT1yVmBpuS9PZHWY35siqnxvimEvpE9FY4peQhfbhO0FDnuFqWAEAAA=';
+        var ticketData = '{"ed":"20170121 09:44:01","fs":[{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"003","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"005","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"004","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"007","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"008","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"026","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"033","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"034","oids":["0"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"035","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"037","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"038","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"041","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"042","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"047","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"046","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"048","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"051","oids":["1"]},{"usg":[1,1,1,1,1,1,1],"act":0,"fid":"053","oids":["4"]}],"qty":1,"sd":"20161021 09:44:01","cd":"72016102116762039687"}';
+// Output to console
+        var s = this.unzip(b64Data);
+        console.log("unzipped:");
+        console.log(s);
+        var data = this.zip(ticketData);
+        console.log("zipped:");
+        console.log(data);
+//
+// Here you can do base64 encode, make xhr requests and so on.
+//
+        $.ajax({
+            url: "http://192.168.31.93:8080/jike-logcollect-service/receive/uploadPointData",
+            data: params,
+            dataType: "text",
+            type: "post",
+            headers: {
+                //如果 compressBeginLen 大于 1000,标记此次请求的参数使用了 gzip 压缩
+                "Content-Encoding": "gzip"
+            },
+            success: function (data) {
+                //dosomething
+                console.log(data)
+            }
+        });
+    }
+    function unzip(b64Data) {
+        var strData = atob(b64Data);
+        // Convert binary string to character-number array
+        var charData = strData.split('').map(function (x) {
+            return x.charCodeAt(0);
+        });
+        // Turn number array into byte-array
+        var binData = new Uint8Array(charData);
+        // // unzip
+        var data = pako.inflate(binData);
+        // Convert gunzipped byteArray back to ascii string:
+        strData = String.fromCharCode.apply(null, new Uint16Array(data));
+        return strData;
+    }
+
+    function zip(str) {
+        var binaryString = pako.gzip(str, {to: 'string'});
+        return btoa(binaryString);
+    }
+    function submit() {
         var form = new FormData(document.getElementById("form"));
         console.log(form);
         $.ajax({
-            url : 'http://localhost:3000/local/formTest',
-            type : "post",
-            data : form,
-            cache : false,
-            processData : false,
-            contentType : false,
-            success : function(data){
+            url: 'http://localhost:3000/local/formTest',
+            type: "post",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
                 console.log(data);
             }
         })
     }
-    function appendHTML(){
+    function appendHTML() {
         $.ajax({
-            url : './data.json',
-            type : "get",
-            dataType:"json",
-            success : function(data){
+            url: './data.json',
+            type: "get",
+            dataType: "json",
+            success: function (data) {
                 console.log(data);
                 $("#dataJson").html(data.data);
             }
         })
     }
-    function docCombine(){
+    function docCombine() {
         $.ajax({
-            url:"docs/word1.docx",
-            type:"post",
-            dateType:"String",
-            success:function(aa){
+            url: "docs/word1.docx",
+            type: "post",
+            dateType: "String",
+            success: function (aa) {
                 console.log(aa)
             }
         })
